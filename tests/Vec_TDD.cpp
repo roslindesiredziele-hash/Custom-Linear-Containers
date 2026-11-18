@@ -4,6 +4,23 @@
 
 #include "../src/Vec.h"
 
+TEST_CASE("deleteMe removes element")
+{
+    Vec v(5);
+
+    v.push(10);
+    v.push(20);
+    v.push(30);
+
+    v.deleteMe(2);
+
+    CHECK(v.size() == 2);
+    CHECK(v[0] == 10);
+    CHECK(v[1] == 30);
+}
+
+
+
 TEST_CASE("push increases size and stores values")
 {
     Vec v(1);

@@ -382,4 +382,4 @@ making the container feel familiar to users of `std::vector`.
 Computer Science Student  
 University of Łódź
 
-> *Understanding how software works internally is the bestbuild software that lasts.*
+> *Understanding how software works internally is the best way to build software that lasts.*

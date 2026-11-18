@@ -160,7 +160,15 @@ void Vec::deleteUs(int a, int b)
     if(a < 1 || b >= len)
     throw std::out_of_range("the range selected is out of the memory");
 
-    
+    for(int j = len -b -1; j < len; j++)
+    {
+        for(int i = len - 1; i > a ; i--)
+        {
+            swapInt(mem[i],mem[i-1]);
+        }
+
+        len--;
+    }
 }
 
 void Vec::push(int el)

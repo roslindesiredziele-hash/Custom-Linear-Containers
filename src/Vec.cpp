@@ -155,22 +155,26 @@ void Vec::deleteMe(int ind)
 
 void Vec::deleteUs(int a, int b)
 {
-    if(a > b)
-    swapInt(a,b);
-    
-    if(a < 1 || b > len)
-    throw std::out_of_range("the range selected is out of the memory");
+    if (a > b)
+        swapInt(a, b);
 
-    for(int j = len -b -1; j < len; j++)
+    if (a < 1 || b > len)
     {
-        for(int i = len - 1; i > a ; i--)
-        {
-            swapInt(mem[i],mem[i-1]);
-        }
-
-        len--;
+        throw std::out_of_range(
+            "the range selected is out of the memory");
     }
+
+    int first = a - 1;
+    int removed = b - a + 1;
+
+    for (int i = first; i + removed < len; i++)
+    {
+        mem[i] = mem[i + removed];
+    }
+
+    len -= removed;
 }
+
 
 void Vec::push(int el)
 {

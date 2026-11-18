@@ -140,9 +140,9 @@ void Vec::resize(int new_cap)
 
 void Vec::deleteMe(int ind)
 {
-    if(ind < 1 || ind >= len)
+    if(ind < 1 || ind > len)
     {
-        throw std::out_of_range("The is no element at the position requested");
+        throw std::out_of_range("There is no element at the requested position");
     }
 
     for(int i = ind; i < len; i++)
@@ -157,7 +157,7 @@ void Vec::deleteUs(int a, int b)
 {
     if(a > b)
     swapInt(a,b);
-    if(a < 1 || b >= len)
+    if(a < 1 || b > len)
     throw std::out_of_range("the range selected is out of the memory");
 
     for(int j = len -b -1; j < len; j++)

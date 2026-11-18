@@ -19,7 +19,23 @@ TEST_CASE("deleteMe removes element")
     CHECK(v[1] == 30);
 }
 
+TEST_CASE("deleteUs removes range")
+{
+    Vec v(6);
 
+    for (int i = 1; i <= 6; i++)
+    {
+        v.push(i);
+    }
+
+    v.deleteUs(2, 4);
+
+    CHECK(v.size() == 3);
+
+    CHECK(v[0] == 1);
+    CHECK(v[1] == 5);
+    CHECK(v[2] == 6);
+}
 
 TEST_CASE("push increases size and stores values")
 {

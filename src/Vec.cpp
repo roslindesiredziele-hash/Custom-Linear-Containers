@@ -173,6 +173,10 @@ void Vec::deleteUs(int a, int b)
 
 void Vec::push(int el)
 {
+    if (cap > INT_MAX / 2)
+{
+    throw std::overflow_error("capacity overflow");
+}
     if (len == cap)
         resize(2 * cap);
 

@@ -30,6 +30,7 @@ public:
     bool empty() const;
 
     void resize(int new_cap);
+    void deleteMe(int ind);
 
     void push(int el);
 

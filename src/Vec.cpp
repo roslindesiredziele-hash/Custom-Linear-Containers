@@ -138,6 +138,16 @@ void Vec::resize(int new_cap)
     len = new_len;
 }
 
+void Vec::deleteMe(int ind)
+{
+    if(ind < 0 || ind >= len)
+    {
+        throw std::out_of_range("The is no element at the position requested");
+    }
+
+    
+}
+
 void Vec::push(int el)
 {
     if (len == cap)

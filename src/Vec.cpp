@@ -153,6 +153,16 @@ void Vec::deleteMe(int ind)
     len--;
 }
 
+void Vec::deleteUs(int a, int b)
+{
+    if(a > b)
+    swapInt(a,b);
+    if(a < 1 || b >= len)
+    throw std::out_of_range("the range selected is out of the memory");
+
+    
+}
+
 void Vec::push(int el)
 {
     if (len == cap)

@@ -147,7 +147,7 @@ void Vec::deleteMe(int ind)
 
     for(int i = ind; i < len; i++)
     {
-        mem[i-1] = mem[i];
+        mem[i] = mem[i-1];
     }
 
     len--;
@@ -165,7 +165,7 @@ void Vec::deleteUs(int a, int b)
     {
         for(int i = len - 1; i > a ; i--)
         {
-            swapInt(mem[i],mem[i-1]);
+            mem[i-1] = mem[i];
         }
 
         len--;

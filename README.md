@@ -1,6 +1,6 @@
 # Vec
 
-[![CI](https://github.com/roslindesiredziele-hash/Vector/actions/workflows/ci.yml/badge.svg)](https://github.com/roslindesiredziele-hash/Vector/actions/workflows/ci.yml)
+[![C++ CI](https://github.com/roslindesiredziele-hash/Vector/actions/workflows/ci.yml/badge.svg)](https://github.com/roslindesiredziele-hash/Vector/actions/workflows/ci.yml)
 
 A custom dynamic array implementation in modern C++ inspired by `std::vector`.
 

@@ -329,10 +329,10 @@ const int* Vec::begin() const
 
 int* Vec::end()
 {
-    return mem + len;
+    return len == 0 ? mem : mem + len;
 }
 
 const int* Vec::end() const
 {
-    return mem + len;
+    return len == 0 ? mem : mem + len;
 }

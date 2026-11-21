@@ -1,5 +1,7 @@
 #include "LinkedList.h"
 
+#include <stdexcept>
+
 LinkedList::LinkedList():
  head(nullptr), tail(nullptr), len(0)
  {
@@ -11,7 +13,7 @@ LinkedList::LinkedList():
     clear();
  }
 
-int LinkedList::getlength()
+int LinkedList::getlength() const
 {
     return len;
 }
@@ -53,7 +55,13 @@ std::ostream& operator<< (std::ostream &ostr, class LinkedList &L)
 
 int& LinkedList::operator[](int index)
 {
+    if(index < 0 || index >= len)
+    {
+        throw std::out_of_range("Index out of range");
+    }
+
     Box* ptr = head;
+
     for(int i = 0; i < index; i++)
     {
         ptr = ptr -> nextbox;

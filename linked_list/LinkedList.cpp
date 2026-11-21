@@ -29,7 +29,19 @@ void LinkedList::clear()
     }
 }
 
-
+std::ostream& operator<< (std::ostream &ostr, class LinkedList &L)
+{
+    struct LinkedList::Box * ptr = L.head;
+    ostr << " [ ";
+    
+    for(int i = 0; i < L.len; i++)
+    {
+        ostr << ptr -> value;
+        if(i != L.len - 1)
+            ostr << "; ";
+        ptr = ptr->nextbox;
+    }
+}
 
 void LinkedList::append(int v)
 {

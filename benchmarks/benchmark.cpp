@@ -13,6 +13,7 @@ double BenchmarkStdVector(int);
 double BenchmarkLinkedList(int);
 
 double MeasureMilliseconds(LARGE_INTEGER start, LARGE_INTEGER end, LARGE_INTEGER freq);
+double AverageVec(int size, int runs);
 
 
 int main()

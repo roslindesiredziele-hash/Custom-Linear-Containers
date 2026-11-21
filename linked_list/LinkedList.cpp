@@ -27,6 +27,26 @@ LinkedList::LinkedList():
     }
 }
 
+LinkedList& LinkedList::operator=(const LinkedList& other)
+{
+    if(this == &other)
+    {
+        return *this;
+    }
+
+    clear();
+
+    Box* ptr = other.head;
+
+    while(ptr)
+    {
+        append(ptr->value);
+        ptr = ptr->nextbox;
+    }
+
+    return *this;
+}
+
 int LinkedList::getlength() const
 {
     return len;

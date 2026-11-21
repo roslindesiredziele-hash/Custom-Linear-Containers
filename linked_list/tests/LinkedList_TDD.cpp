@@ -60,6 +60,21 @@ TEST_CASE("Move constructor transfers ownership")
     REQUIRE(original.empty());
 }
 
+TEST_CASE("Operator[] throws for invalid index")
+{
+    LinkedList L;
+
+    L.append(10);
+
+    REQUIRE_THROWS_AS(
+        L[-1],
+        std::out_of_range);
+
+    REQUIRE_THROWS_AS(
+        L[1],
+        std::out_of_range);
+}
+
 TEST_CASE("Append increases size")
 {
     LinkedList L;

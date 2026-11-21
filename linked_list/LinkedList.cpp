@@ -13,6 +13,20 @@ LinkedList::LinkedList():
     clear();
  }
 
+ LinkedList::LinkedList(const LinkedList& other):
+      head(nullptr),
+      tail(nullptr),
+      len(0)
+{
+    Box* ptr = other.head;
+
+    while(ptr)
+    {
+        append(ptr->value);
+        ptr = ptr->nextbox;
+    }
+}
+
 int LinkedList::getlength() const
 {
     return len;

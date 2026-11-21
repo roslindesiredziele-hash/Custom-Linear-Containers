@@ -222,7 +222,14 @@ void LinkedList::erase(int index)
 
 void LinkedList::erase(int first, int last)
 {
-    if(first < 0 || last < 0 || first > last || last >= len)
+    if(first > last)
+    {
+        int temp = first;
+        first = last;
+        last = temp;
+    }
+    
+    if(first < 0 || last < 0 || last >= len)
     {
         throw std::out_of_range("Invalid range");
     }

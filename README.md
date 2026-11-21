@@ -1,89 +1,120 @@
-# Vec
+# Custom Linear Containers
 
-[![C++ CI](https://github.com/roslindesiredziele-hash/Vector/actions/workflows/ci.yml/badge.svg)](https://github.com/roslindesiredziele-hash/Vector/actions/workflows/ci.yml)
+[![C++ CI](https://github.com/roslindesiredziele-hash/Custom-Linear-Containers/actions/workflows/ci.yml/badge.svg)](https://github.com/roslindesiredziele-hash/Custom-Linear-Containers/actions/workflows/ci.yml)
 
-A custom dynamic array implementation in modern C++ inspired by `std::vector`.
+A collection of custom linear data structures implemented in modern C++, accompanied by automated testing, continuous integration, and benchmark-driven performance analysis.
 
-This project was developed to explore low-level memory management, dynamic storage growth strategies, value semantics, iterator design, and software testing practices in modern C++. The container implements automatic capacity growth using the table-doubling technique and supports common operations expected from a dynamic array.
+The project contains:
+
+- **Vec** - a dynamic array inspired by `std::vector`
+- **LinkedList** - a singly linked list implementation
+- Comprehensive unit tests using **Catch2**
+- Automated test execution with **CTest**
+- Continuous integration through **GitHub Actions**
+- Benchmarking and complexity analysis for append operations
 
 ---
 
-## Features
+## Table of Contents
 
-### Memory Management
+- [Assignment Goals](#assignment-goals)
+- [Implemented Containers](#implemented-containers)
+  - [Vec](#vec)
+  - [LinkedList](#linkedlist)
+- [Complexity Analysis](#complexity-analysis)
+  - [Vec Complexity](#vec-complexity)
+  - [LinkedList Complexity](#linkedlist-complexity)
+- [Project Structure](#project-structure)
+- [Building](#building)
+- [Testing](#testing)
+- [Test Statistics](#test-statistics)
+  - [Vec Test Coverage](#vec-test-coverage)
+  - [LinkedList Test Coverage](#linkedlist-test-coverage)
+  - [Overall Statistics](#overall-statistics)
+- [Benchmarking](#benchmarking)
+- [Benchmark Results](#benchmark-results)
+  - [Append Performance (0 - 5,000 Appends)](#append-performance-0---5000-appends)
+  - [Vec vs std::vector (0 - 1,000 Appends)](#vec-vs-stdvector-0---1000-appends)
+  - [Append Performance (5,000 - 1,000,000 Appends)](#append-performance-5000---1000000-appends)
+  - [Initial Capacity Growth (0 - 16 Elements)](#initial-capacity-growth-0---16-elements)
+  - [Capacity Growth (16 - 524,289 Elements)](#capacity-growth-16---524289-elements)
+  - [Numerical Results](#numerical-results)
+  - [Observations](#observations)
+- [Capacity Growth Analysis](#capacity-growth-analysis)
+- [Design Highlights](#design-highlights)
+  - [Table Doubling](#table-doubling)
+  - [Rule of Five Support](#rule-of-five-support)
+  - [Continuous Integration](#continuous-integration)
+- [Technologies](#technologies)
+- [Author](#author)
 
-- Dynamic memory allocation
-- Automatic capacity doubling
-- RAII-compliant resource management
+---
+
+## Assignment Goals
+
+This project was developed to explore:
+
+- Dynamic memory management
+- Resource ownership and RAII
+- Copy and move semantics
+- Iterator support
+- Amortized complexity analysis
+- Software testing practices
+- Empirical performance evaluation
+
+---
+
+## Implemented Containers
+
+### Vec
+
+A dynamic array implementation inspired by `std::vector`.
+
+Features:
+
+- Automatic capacity growth
+- Amortized O(1) append
 - Deep copy semantics
 - Move semantics
+- Iterator support
 
-### Element Access
+### LinkedList
 
-- `operator[]`
-- `get()`
-- `first()`
-- `last()`
+A singly linked list implementation.
 
-### Capacity Management
+Features:
 
-- `size()`
-- `capacity()`
-- `empty()`
-- `resize()`
-- `clear()`
-
-### Modification Operations
-
-- `push()`
-- `pop()`
-- `deleteMe()`
-- `deleteUs()`
-
-### Searching
-
-- `linearSearch()`
-- `binarySearch()`
-
-### Utility Algorithms
-
-- `reverse()`
-- `reverse(int l, int r)`
-- `rotate()`
-- `sum()`
-- `avg()`
-
-### Iterator Support
-
-- `begin()`
-- `end()`
-
-Supports range-based loops:
-
-```cpp
-for (int value : vec)
-{
-    std::cout << value << '\n';
-}
-```
+- O(1) append
+- Deep copy semantics
+- Move semantics
+- Dynamic node allocation
+- Element insertion and deletion
 
 ---
 
 ## Complexity Analysis
 
+### Vec Complexity
+
 | Operation | Complexity |
 |------------|------------|
-| Access (`[]`) | O(1) |
-| `push()` (amortized) | O(1) |
-| `push()` (worst case) | O(n) |
-| `pop()` | O(1) |
-| `resize()` | O(n) |
-| `deleteMe()` | O(n) |
-| `deleteUs()` | O(n) |
-| `linearSearch()` | O(n) |
-| `binarySearch()` | O(log n) |
-| `reverse()` | O(n) |
-| `rotate()` | O(n) |
+| Access | O(1) |
+| Append (amortized) | O(1) |
+| Append (worst case) | O(n) |
+| Resize | O(n) |
+| Delete | O(n) |
+| Linear Search | O(n) |
+| Binary Search | O(log n) |
+
+### LinkedList Complexity
+
+| Operation | Complexity |
+|------------|------------|
+| Append | O(1) |
+| Prepend | O(1) |
+| Access by Index | O(n) |
+| Search | O(n) |
+| Delete | O(n) |
 
 ---
 
@@ -103,8 +134,21 @@ Vector
 │   ├── Vec.cpp
 │   └── Vec.h
 │
+├── linked_list/
+│   ├── src/
+│   │   ├── LinkedList.cpp
+│   │   └── LinkedList.h
+│   │
+│   └── tests/
+│       └── LinkedList_TDD.cpp
+│
 ├── tests/
 │   └── Vec_TDD.cpp
+│
+├── benchmarks/
+│   ├── benchmark.cpp
+│   ├── data/
+│   └── report/
 │
 ├── CMakeLists.txt
 │
@@ -113,18 +157,7 @@ Vector
 
 ---
 
-## Installation
-
-Clone the repository:
-
-```bash
-git clone https://github.com/roslindesiredziele-hash/Vector.git
-cd Vector
-```
-
----
-
-## Build
+## Building
 
 Configure the project:
 
@@ -142,183 +175,175 @@ cmake --build build
 
 ## Testing
 
-Run all tests using CTest:
+Run all tests:
 
 ```bash
 ctest --test-dir build -C Debug --output-on-failure
 ```
 
-Run the test executable directly:
+Run the test suites directly:
 
 ```bash
-./build/Debug/Vec_TDD.exe
+build/Debug/Vec_TDD.exe
 ```
 
-Expected output:
+```bash
+build/Debug/LinkedList_TDD.exe
+```
+
+Expected outputs:
 
 ```text
-===============================================================================
 All tests passed (91 assertions in 36 test cases)
 ```
 
----
-
-## Usage Examples
-
-### Creating a Vector
-
-```cpp
-#include "Vec.h"
-
-int main()
-{
-    Vec numbers(2);
-
-    numbers.push(10);
-    numbers.push(20);
-    numbers.push(30);
-}
-```
-
----
-
-### Element Access
-
-```cpp
-Vec v(3);
-
-v.push(10);
-v.push(20);
-v.push(30);
-
-std::cout << v[1] << '\n';
-std::cout << v.first() << '\n';
-std::cout << v.last() << '\n';
-```
-
-Output:
-
 ```text
-20
-10
-30
+All tests passed (48 assertions in 17 test cases)
 ```
 
 ---
 
-### Deleting a Single Element
+## Test Statistics
 
-```cpp
-Vec v(5);
+### Vec Test Coverage
 
-v.push(10);
-v.push(20);
-v.push(30);
-
-v.deleteMe(2);
-```
-
-Result:
-
-```text
-[10; 30]
-```
-
----
-
-### Deleting a Range
-
-```cpp
-Vec v(6);
-
-for (int i = 1; i <= 6; i++)
-{
-    v.push(i);
-}
-
-v.deleteUs(2, 4);
-```
-
-Result:
-
-```text
-[1; 5; 6]
-```
-
----
-
-### Searching
-
-```cpp
-Vec v(5);
-
-v.push(1);
-v.push(3);
-v.push(5);
-v.push(7);
-v.push(9);
-
-std::cout << v.linearSearch(5) << '\n';
-std::cout << v.binarySearch(5) << '\n';
-```
-
-Output:
-
-```text
-1
-2
-```
-
----
-
-### Rotation
-
-```cpp
-Vec v(4);
-
-v.push(1);
-v.push(2);
-v.push(3);
-v.push(4);
-
-v.rotate(1);
-```
-
-Result:
-
-```text
-[4; 1; 2; 3]
-```
-
----
-
-## Testing & Quality Assurance
-
-The project uses:
-
-- **Catch2** for unit testing
-- **CTest** for test execution
-- **CMake** for build configuration
-- **GitHub Actions** for continuous integration
-
-### Project Statistics
-
-- 36 automated test cases
+- 36 test cases
 - 91 assertions
-- Copy constructor coverage
-- Move constructor coverage
-- Assignment operator coverage
-- Iterator testing
-- Exception testing
-- Dynamic resize testing
+
+### LinkedList Test Coverage
+
+- 17 test cases
+- 48 assertions
+
+### Overall Statistics
+
+- 53 test cases
+- 139 assertions
+
+---
+
+## Benchmarking
+
+The benchmark compares append performance of:
+
+- `Vec`
+- `std::vector`
+- `LinkedList`
+
+Benchmark source:
+
+```text
+benchmarks/benchmark.cpp
+```
+
+Generated benchmark data:
+
+```text
+benchmarks/data/
+```
+
+Generated figures:
+
+```text
+benchmarks/report/
+```
+
+---
+
+## Benchmark Results
+
+### Append Performance (0 - 5,000 Appends)
+
+![Append Performance Small Inputs](benchmarks/report/append_small_all.png)
+
+For small workloads, all three containers exhibit low execution times. Even at these scales, LinkedList begins to diverge from the vector-based containers.
+
+---
+
+### Vec vs std::vector (0 - 1,000 Appends)
+
+![Vec vs std::vector Small Inputs](benchmarks/report/append_vectors_small.png)
+
+A closer comparison reveals that the custom `Vec` implementation performs similarly to `std::vector`. The observed differences remain small throughout the measured range.
+
+---
+
+### Append Performance (5,000 - 1,000,000 Appends)
+
+![Append Performance Large Inputs](benchmarks/report/append_large_all.png)
+
+As the number of append operations increases, the performance gap becomes increasingly visible. Both vector-based containers scale efficiently while LinkedList becomes substantially slower.
+
+---
+
+### Initial Capacity Growth (0 - 16 Elements)
+
+![Initial Capacity Growth](benchmarks/report/capacity_small.png)
+
+The only meaningful difference between the two vector implementations occurs during initialization. `Vec` begins with capacity one, whereas `std::vector` starts with capacity zero and allocates storage when the first element is inserted.
+
+---
+
+### Capacity Growth (16 - 524,289 Elements)
+
+![Capacity Growth Comparison](benchmarks/report/capacity_large.png)
+
+Beyond the initial allocation, both containers exhibit identical growth behaviour. Capacity doubles whenever the current storage becomes exhausted.
+
+---
+
+### Numerical Results
+
+| Size | Vec (ms) | std::vector (ms) | LinkedList (ms) |
+|------:|------:|------:|------:|
+| 100 | 0.00169 | 0.00108 | 0.00364 |
+| 500 | 0.00324 | 0.00205 | 0.01968 |
+| 1,000 | 0.00569 | 0.00215 | 0.03701 |
+| 5,000 | 0.03607 | 0.02806 | 0.26683 |
+| 10,000 | 0.07055 | 0.05746 | 0.45885 |
+| 20,000 | 0.13684 | 0.10774 | 1.06418 |
+| 50,000 | 0.36705 | 0.27616 | 2.62000 |
+| 100,000 | 0.59510 | 0.46443 | 5.21831 |
+| 500,000 | 2.10927 | 1.36735 | 25.22770 |
+| 1,000,000 | 4.91755 | 2.94202 | 52.03480 |
+
+---
+
+### Observations
+
+#### Runtime Behaviour
+
+| Container | Time for 1,000,000 Appends |
+|------------|-----------:|
+| std::vector | 2.94 ms |
+| Vec | 4.92 ms |
+| LinkedList | 52.03 ms |
+
+The custom `Vec` implementation achieves performance comparable to `std::vector`. Although `std::vector` remains faster, the difference is relatively small compared to the dramatic gap between both vector-based containers and LinkedList.
+
+#### LinkedList Performance
+
+The linked list implementation performs significantly worse despite providing O(1) append complexity in theory.
+
+Each append operation requires:
+
+- Dynamic memory allocation
+- Node construction
+- Pointer manipulation
+
+In contrast, `Vec` and `std::vector` store elements contiguously in memory, allowing significantly better cache utilization and reducing allocation frequency.
+
+#### Reallocation Behaviour
+
+The benchmark tracked container capacity during growth.
+
+the behaviour of the standard library implementation. Capacity doubling explains why append operations maintain amortized O(1) complexity despite occasional expensive reallocations.
 
 ---
 
 ## Design Highlights
 
-### Table Doubling Strategy
-
-When capacity is exhausted, the vector automatically grows:
+### Table Doubling
 
 ```cpp
 if (len == cap)
@@ -327,42 +352,30 @@ if (len == cap)
 }
 ```
 
-This provides amortized **O(1)** append operations.
+Capacity doubles whenever storage is exhausted.
 
-### Value Semantics
+### Rule of Five Support
 
-The container supports:
+The containers implement:
 
-- Copy construction
+- Copy constructor
 - Copy assignment
-- Move construction
+- Move constructor
+- Move assignment
+- Destructor
 
-allowing safe and predictable ownership management.
+ensuring correct ownership and resource management.
 
-### STL-Like Interface
+### Continuous Integration
 
-Iterator support enables:
+Every push is automatically verified through:
 
-```cpp
-for (int value : vec)
-{
-    // ...
-}
-```
+- GitHub Actions
+- CMake
+- CTest
+- Catch2
 
-making the container feel familiar to users of `std::vector`.
-
----
-
-## Future Improvements
-
-- Template support (`Vec<T>`)
-- Custom iterator class
-- Insert operations
-- Shrink-to-fit functionality
-- STL-compatible API
-- Allocator support
-- Strong exception guarantees
+All tests must pass before changes are considered valid.
 
 ---
 
@@ -373,6 +386,7 @@ making the container feel familiar to users of `std::vector`.
 - Catch2
 - CTest
 - GitHub Actions
+- Python (benchmark visualization)
 
 ---
 

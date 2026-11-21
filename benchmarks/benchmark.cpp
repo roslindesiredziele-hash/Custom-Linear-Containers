@@ -45,10 +45,7 @@ double BenchmarkVec(int size)
 
     QueryPerformanceCounter(&end);
 
-    return MeasureMilliseconds(
-        start,
-        end,
-        freq);
+    return MeasureMilliseconds(start, end, freq);
 }
 
 double BenchmarkStdVector(int size)
@@ -70,10 +67,7 @@ double BenchmarkStdVector(int size)
 
     QueryPerformanceCounter(&end);
 
-    return MeasureMilliseconds(
-        start,
-        end,
-        freq);
+    return MeasureMilliseconds(start, end, freq);
 }
 
 double BenchmarkLinkedList(int size)
@@ -95,8 +89,5 @@ double BenchmarkLinkedList(int size)
 
     QueryPerformanceCounter(&end);
 
-    return MeasureMilliseconds(
-        start,
-        end,
-        freq);
+    return MeasureMilliseconds(start, end, freq);
 }

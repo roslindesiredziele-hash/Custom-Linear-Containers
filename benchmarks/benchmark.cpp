@@ -19,6 +19,73 @@ double AverageLinkedList(int size,int runs);
 
 int main()
 {
+    vector<int> sizes =
+    {
+        5,
+        10,
+        15,
+        20,
+        25,
+        30,
+        35,
+        40,
+        45,
+        50,
+        60,
+        70,
+        80,
+        90,
+        100,
+        150,
+        200,
+        250,
+        300,
+        350,
+        400,
+        450,
+        500,
+        600,
+        700,
+        800,
+        900,
+        1000,
+        1200,
+        1400,
+        1600,
+        1800,
+        2000,
+        3000,
+        4000,
+        5000,
+        10000,
+        20000,
+        50000,
+        100000,
+        500000,
+        1000000
+    };
+
+    constexpr int runs = 20;
+
+    ofstream file("data/data.csv");
+
+    file << "Size," << "VecMs," << "StdVectorMs," << "LinkedListMs\n";
+
+    for(int size : sizes)
+    {
+        double vecTime = AverageVec(size, runs);
+
+        double stdTime = AverageStdVector(size, runs);
+
+        double listTime = AverageLinkedList(size, runs);
+
+        file << size << "," << vecTime << "," << stdTime << "," << listTime << "\n";
+
+        cout << "Finished size " << size << '\n';
+    }
+
+    file.close();
+
     return 0;
 }
 

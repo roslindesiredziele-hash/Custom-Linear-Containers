@@ -28,7 +28,7 @@ class Linkedlist
     int& operator[](int);
     const int& operator[](int) const;
 
-    int getlength() {return len;}
+    int getlength();
     void append(int);
     void prepend(int);
 

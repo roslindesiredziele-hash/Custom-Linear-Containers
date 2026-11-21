@@ -25,10 +25,12 @@ class Linkedlist
     ~Linkedlist();
 
     friend std::ostream &operator<<(std::ostream &ostr, class Linkedlist &L);
+
     int& operator[](int);
     const int& operator[](int) const;
 
     int getlength();
+    bool empty() const;
 
     int& front();
     const int& front() const;

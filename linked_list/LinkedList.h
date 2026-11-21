@@ -30,7 +30,8 @@ class Linkedlist
 
     int getlength();
 
-    
+    int& front();
+    const int& front() const;
 
     int& back();
     const int& back() const;

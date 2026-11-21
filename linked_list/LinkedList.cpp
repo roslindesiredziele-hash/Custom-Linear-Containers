@@ -159,6 +159,18 @@ const int& LinkedList::front() const
     return head->value;
 }
 
+int& LinkedList::back()
+{
+    if(empty())
+    {
+        throw std::logic_error("List is empty");
+    }
+
+    return tail->value;
+}
+
+
+
 void LinkedList::append(int v)
 {
     if(!len)

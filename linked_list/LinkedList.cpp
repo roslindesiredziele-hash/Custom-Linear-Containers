@@ -1,12 +1,22 @@
 #include "LinkedList.h"
 
-Linkedlist::Linkedlist():
+LinkedList::LinkedList():
  head(nullptr), tail(nullptr), len(0)
  {
 
  }
 
-int Linkedlist::getlength()
+ LinkedList::~LinkedList()
+ {
+    clear();
+ }
+
+int LinkedList::getlength()
 {
     return len;
+}
+
+void LinkedList::clear()
+{
+    
 }

@@ -1,3 +1,9 @@
 #include "LinkedList.h"
 
-Linkedlist::Linkedlist() { head = tail = nullptr; len = 0;};
+Linkedlist::Linkedlist():
+ head(nullptr), tail(nullptr), len(0)
+ {
+
+ }
+
+ 

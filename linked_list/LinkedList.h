@@ -26,6 +26,7 @@ class Linkedlist
 
     friend std::ostream &operator<<(std::ostream &ostr, class Linkedlist &L);
     int& operator[](int);
+    const int& operator[](int) const;
 
     int getlength() {return len;}
     void append(int);

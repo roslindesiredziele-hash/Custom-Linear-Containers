@@ -14,6 +14,20 @@ TEST_CASE("Default constructor creates empty list")
     REQUIRE(L.getlength() == 0);
 }
 
+TEST_CASE("Self assignment")
+{
+    LinkedList L;
+
+    L.append(10);
+    L.append(20);
+
+    L = L;
+
+    REQUIRE(L.getlength() == 2);
+    REQUIRE(L[0] == 10);
+    REQUIRE(L[1] == 20);
+}
+
 TEST_CASE("Copy constructor performs deep copy")
 {
     LinkedList original;

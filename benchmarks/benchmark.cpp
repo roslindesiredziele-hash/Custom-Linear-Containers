@@ -54,8 +54,8 @@ int main()
         double listTime = AverageLinkedList(size, runs);
 
         file << size << "," << vecTime << "," << stdTime << "," << listTime << "\n";
-
-        cout << "Finished size " << size << '\n' << flush;
+        
+        cout << "Size: " << size << " | Vec: " << vecTime << " ms" << " | std::vector: " << stdTime << " ms" << " | LinkedList: " << listTime << " ms\n";
     }
 
     file.close();

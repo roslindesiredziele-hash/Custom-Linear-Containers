@@ -9,7 +9,9 @@ class Linkedlist
         int value;
         Box* nextbox;
 
-        
+        Box(int v, Box* b):
+        value(v), nextbox(b)
+        {}
     };
     
 };

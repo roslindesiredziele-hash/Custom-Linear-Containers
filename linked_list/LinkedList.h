@@ -24,6 +24,7 @@ class LinkedList
     LinkedList();
     ~LinkedList();
     LinkedList(const LinkedList& other);
+    LinkedList& operator = (const LinkedList& other);
     
 
     friend std::ostream &operator<<(std::ostream &ostr, class LinkedList &L);

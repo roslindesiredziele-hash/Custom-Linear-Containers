@@ -100,3 +100,21 @@ TEST_CASE("Front and back return correct elements")
     REQUIRE(L.back() == 30);
 }
 
+TEST_CASE("Resize grows list")
+{
+    LinkedList L;
+
+    L.append(1);
+    L.append(2);
+
+    L.resize(5);
+
+    REQUIRE(L.getlength() == 5);
+
+    REQUIRE(L[0] == 1);
+    REQUIRE(L[1] == 2);
+    REQUIRE(L[2] == 0);
+    REQUIRE(L[3] == 0);
+    REQUIRE(L[4] == 0);
+}
+

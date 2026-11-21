@@ -27,3 +27,18 @@ TEST_CASE("Append increases size")
     REQUIRE(L[2] == 30);
 }
 
+TEST_CASE("Prepend inserts at beginning")
+{
+    LinkedList L;
+
+    L.prepend(10);
+    L.prepend(20);
+    L.prepend(30);
+
+    REQUIRE(L.getlength() == 3);
+
+    REQUIRE(L[0] == 30);
+    REQUIRE(L[1] == 20);
+    REQUIRE(L[2] == 10);
+}
+

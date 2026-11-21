@@ -30,6 +30,11 @@ class Linkedlist
 
     int getlength();
 
+    
+
+    int& back();
+    const int& back() const;
+
     void append(int);
     void prepend(int);
 

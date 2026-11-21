@@ -20,7 +20,7 @@ public:
     Vec(Vec&&) noexcept;
 
     Vec(const Vec&);
-    Vec& operator=(const Vec);
+    Vec& operator=(const Vec&);
     
 
     int& operator[](int);

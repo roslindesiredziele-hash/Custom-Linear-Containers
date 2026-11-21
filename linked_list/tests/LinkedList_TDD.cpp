@@ -136,4 +136,20 @@ TEST_CASE("Resize shrinks list")
     REQUIRE(L[2] == 3);
 }
 
+TEST_CASE("Erase removes one element")
+{
+    LinkedList L;
 
+    L.append(1);
+    L.append(2);
+    L.append(3);
+    L.append(4);
+
+    L.erase(1);
+
+    REQUIRE(L.getlength() == 3);
+
+    REQUIRE(L[0] == 1);
+    REQUIRE(L[1] == 3);
+    REQUIRE(L[2] == 4);
+}

@@ -179,6 +179,17 @@ Vector
 
 ---
 
+## Cloning the Repository
+
+```bash
+git clone \
+  --branch dangerous-minds-benchmark \
+  --single-branch \
+  https://github.com/roslindesiredziele-hash/Custom-Linear-Containers.git
+```
+
+---
+
 ## Building
 
 Configure the project:

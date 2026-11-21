@@ -9,8 +9,8 @@
 using namespace std;
 
 double BenchmarkVec(int);
-void BenchmarkStdVector(int);
-void BenchmarkLinkedList(int);
+double BenchmarkStdVector(int);
+double BenchmarkLinkedList(int);
 
 double MeasureMilliseconds(LARGE_INTEGER start, LARGE_INTEGER end, LARGE_INTEGER freq);
 

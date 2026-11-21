@@ -149,7 +149,15 @@ int& LinkedList::front()
     return head->value;
 }
 
+const int& LinkedList::front() const
+{
+    if(empty())
+    {
+        throw std::logic_error("List is empty");
+    }
 
+    return head->value;
+}
 
 void LinkedList::append(int v)
 {

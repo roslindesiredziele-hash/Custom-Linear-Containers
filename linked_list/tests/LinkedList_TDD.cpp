@@ -27,6 +27,23 @@ TEST_CASE("Copy constructor performs deep copy")
     REQUIRE(copy[0] == 999);
 }
 
+TEST_CASE("Copy assignment performs deep copy")
+{
+    LinkedList original;
+
+    original.append(1);
+    original.append(2);
+
+    LinkedList copy;
+
+    copy = original;
+
+    copy[0] = 100;
+
+    REQUIRE(original[0] == 1);
+    REQUIRE(copy[0] == 100);
+}
+
 TEST_CASE("Append increases size")
 {
     LinkedList L;

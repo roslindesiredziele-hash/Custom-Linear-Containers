@@ -56,13 +56,13 @@ double BenchmarkStdVector(int size)
 
     QueryPerformanceFrequency(&freq);
 
-    Vec v(1);
+    std::vector<int> v;
 
     QueryPerformanceCounter(&start);
 
     for(int i = 0; i < size; i++)
     {
-        v.push(i);
+        v.push_back(i);
     }
 
     QueryPerformanceCounter(&end);
@@ -78,13 +78,13 @@ double BenchmarkLinkedList(int size)
 
     QueryPerformanceFrequency(&freq);
 
-    Vec v(1);
+   LinkedList L;
 
     QueryPerformanceCounter(&start);
 
     for(int i = 0; i < size; i++)
     {
-        v.push(i);
+        L.append(i);
     }
 
     QueryPerformanceCounter(&end);

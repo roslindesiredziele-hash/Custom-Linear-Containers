@@ -219,3 +219,16 @@ void LinkedList::erase(int index)
 
     len--;
 }
+
+void LinkedList::erase(int first, int last)
+{
+    if(first < 0 || last < 0 || first > last || last >= len)
+    {
+        throw std::out_of_range("Invalid range");
+    }
+
+    for(int i = first; i <= last; i++)
+    {
+        erase(first);
+    }
+}

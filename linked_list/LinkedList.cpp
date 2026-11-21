@@ -74,6 +74,31 @@ void LinkedList::clear()
     len = 0;
 }
 
+void LinkedList::resize(int newSize)
+{
+    if(newSize < 0)
+    {
+        throw std::invalid_argument("Negative size");
+    }
+
+    if(newSize == len)
+    {
+        return;
+    }
+
+    // Grow
+    while(len < newSize)
+    {
+        append(0);
+    }
+
+    // Shrink
+    while(len > newSize)
+    {
+        erase(len - 1);
+    }
+}
+
 std::ostream& operator<< (std::ostream &ostr, const class LinkedList &L)
 {
     struct LinkedList::Box * ptr = L.head;

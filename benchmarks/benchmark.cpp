@@ -118,3 +118,14 @@ double AverageStdVector(int size, int runs)
     return total / runs;
 }
 
+double AverageLinkedList(int size,int runs)
+{
+    double total = 0;
+
+    for(int i = 0; i < runs; i++)
+    {
+        total += BenchmarkLinkedList(size);
+    }
+
+    return total / runs;
+}

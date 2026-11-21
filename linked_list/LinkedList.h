@@ -28,6 +28,7 @@ class Linkedlist
     int& operator[](int);
 
     int getlength() {return len;}
+    void append(int);
     
 };
 

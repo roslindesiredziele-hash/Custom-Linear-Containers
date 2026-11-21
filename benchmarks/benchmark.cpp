@@ -55,10 +55,12 @@ int main()
 
         file << size << "," << vecTime << "," << stdTime << "," << listTime << "\n";
 
-        cout << "Finished size " << size << '\n';
+        cout << "Finished size " << size << '\n' << flush;
     }
 
     file.close();
+
+    cout << "Benchmark complete.\n";
 
     return 0;
 }

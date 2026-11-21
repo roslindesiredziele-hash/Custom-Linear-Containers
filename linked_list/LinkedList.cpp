@@ -40,7 +40,7 @@ void LinkedList::clear()
     len = 0;
 }
 
-std::ostream& operator<< (std::ostream &ostr, class LinkedList &L)
+std::ostream& operator<< (std::ostream &ostr, const class LinkedList &L)
 {
     struct LinkedList::Box * ptr = L.head;
     ostr << " [ ";

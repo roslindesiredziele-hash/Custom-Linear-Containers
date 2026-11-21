@@ -28,7 +28,7 @@ class LinkedList
     LinkedList(LinkedList&& other) noexcept;
     LinkedList& operator = (LinkedList&& other) noexcept;
 
-    friend std::ostream &operator<<(std::ostream &ostr, class LinkedList &L);
+    friend std::ostream &operator<<(std::ostream &ostr, const class LinkedList &L);
 
     int& operator[](int);
     const int& operator[](int) const;

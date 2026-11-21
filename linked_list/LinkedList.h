@@ -6,8 +6,10 @@ class Linkedlist
     private:
     struct Box
     {
-        int data;
-        Box* next;
+        int value;
+        Box* nextbox;
+
+        
     };
     
 };

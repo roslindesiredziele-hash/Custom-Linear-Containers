@@ -61,6 +61,12 @@ int main()
     file.close();
 
     ofstream capacityfile("benchmarks/data/capacity_growth.csv");
+
+    if(!capacityfile)
+    {
+        cerr << "Failed to open capacity_growth.csv\n";
+        return 1;
+    }
     
     capacityfile << "Size,Capacity\n";
     Vec v(1);
@@ -81,6 +87,12 @@ int main()
     capacityfile.close();
 
     ofstream stdCapacityfile("benchmarks/data/std_capacity_growth.csv");
+
+    if(!stdCapacityFile)
+    {
+        cerr << "Failed to open std_capacity_growth.csv\n";
+        return 1;
+    }
     
     stdCapacityfile << "Size,Capacity\n";
     

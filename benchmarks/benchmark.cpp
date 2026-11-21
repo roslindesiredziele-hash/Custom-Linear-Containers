@@ -88,7 +88,7 @@ int main()
 
     ofstream stdCapacityfile("benchmarks/data/std_capacity_growth.csv");
 
-    if(!stdCapacityFile)
+    if(!stdCapacityfile)
     {
         cerr << "Failed to open std_capacity_growth.csv\n";
         return 1;

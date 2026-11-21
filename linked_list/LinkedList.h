@@ -35,6 +35,8 @@ class Linkedlist
 
     void clear();
     void resize(int);
+     void erase(int);
+     void erase(int, int);
 
 };
 

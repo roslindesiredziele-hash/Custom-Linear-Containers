@@ -1,6 +1,8 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
+#include <iostream>
+
 class Linkedlist
 {
     private:
@@ -17,8 +19,9 @@ class Linkedlist
     struct Box* head;
     struct Box* tail;
     int len;
-    
-    
+
+    public:
+    Linkedlist();
 };
 
 #endif

@@ -12,7 +12,7 @@ TEST_CASE("deleteMe removes element")
     v.push(20);
     v.push(30);
 
-    v.deleteMe(2);
+    v.erase(2);
 
     CHECK(v.size() == 2);
     CHECK(v[0] == 10);
@@ -28,7 +28,7 @@ TEST_CASE("deleteUs removes range")
         v.push(i);
     }
 
-    v.deleteUs(2, 4);
+    v.erase(2, 4);
 
     CHECK(v.size() == 3);
 

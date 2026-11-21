@@ -10,31 +10,37 @@ private:
     int len;
     int* mem;
 
+    void swapInt(int &a, int &b);
+
 public:
     Vec(int n);
     ~Vec();
 
+    Vec& operator=(Vec&& other) noexcept;
+    Vec(Vec&& other) noexcept;
+
+    Vec(const Vec& other);
+    Vec& operator=(Vec cpy);
+    
+
+    int& operator[](int);
+    const int& operator[](int) const;
+
     int size() const;
     int capacity() const;
 
-    void swapInt(int &a, int &b);
-
-
-    int& operator[](int i);
-    const int& operator[](int i) const;
-
-    int& get(int i);
-    const int& get(int i) const;
+    int& get(int);
+    const int& get(int) const;
 
     void pop();
     bool empty() const;
 
-    void resize(int new_cap);
+    void resize(int);
     
-    void deleteMe(int ind);
-    void deleteUs(int a, int b);
+    void erase(int);
+    void erase(int, int);
 
-    void push(int el);
+    void push(int);
 
     int& first();
     const int& first() const;
@@ -44,25 +50,21 @@ public:
 
     void clear();
 
-    bool linearSearch(int x) const;
-    int binarySearch(int x) const;
+    bool linearSearch(int) const;
+    int binarySearch(int) const;
 
     long long sum() const;
     double avg() const;
 
     void reverse();
-    void reverse(int l, int r);
-    void rotate(int x);
+    void reverse(int, int);
+    void rotate(int);
 
     int* begin ();
     const int* begin() const;
 
     int* end();
     const int* end() const;
-
-    Vec(const Vec& other);
-    Vec& operator=(Vec cpy);
-    Vec(Vec&& other) noexcept;
 };
 
 std::ostream& operator<<(std::ostream& ostr, const Vec& v);

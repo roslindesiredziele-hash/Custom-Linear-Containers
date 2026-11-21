@@ -67,14 +67,14 @@ int Vec::capacity() const
 int &Vec::operator[](int i)
 {
     if (i < 0 || i >= len)
-        throw std::out_of_range("index out of range");
+        throw std::out_of_range("indexex out of range");
     return mem[i];
 }
 
 const int &Vec::operator[](int i) const
 {
     if (i < 0 || i >= len)
-        throw std::out_of_range("index out of range");
+        throw std::out_of_range("indexex out of range");
     return mem[i];
 }
 
@@ -98,14 +98,14 @@ std::ostream &operator<<(std::ostream &ostr, const Vec &v)
 int &Vec::get(int i)
 {
     if (i < 0 || i >= len)
-        throw std::out_of_range("Index out of range");
+        throw std::out_of_range("indexex out of range");
     return mem[i];
 }
 
 const int &Vec::get(int i) const
 {
     if (i < 0 || i >= len)
-        throw std::out_of_range("Index out of range");
+        throw std::out_of_range("indexex out of range");
     return mem[i];
 }
 
@@ -138,14 +138,14 @@ void Vec::resize(int new_cap)
     len = new_len;
 }
 
-void Vec::deleteMe(int ind)
+void Vec::erase(int index)
 {
-    if(ind < 1 || ind > len)
+    if(index < 1 || index > len)
     {
         throw std::out_of_range("There is no element at the requested position");
     }
 
-    for(int i = ind; i < len; i++)
+    for(int i = index; i < len; i++)
     {
         swapInt(mem[i-1],mem[i]);
     }
@@ -153,7 +153,7 @@ void Vec::deleteMe(int ind)
     len--;
 }
 
-void Vec::deleteUs(int a, int b)
+void Vec::erase(int a, int b)
 {
     if (a > b)
         swapInt(a, b);

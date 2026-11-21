@@ -27,11 +27,26 @@ Vec::Vec(const Vec &other) : cap(other.cap),
     }
 }
 
-Vec &Vec::operator=(Vec other)
+Vec& Vec::operator=(const Vec& other)
 {
-    swapInt(cap, other.cap);
-    swapInt(len, other.len);
-    std::swap(mem, other.mem);
+    if (this == &other)
+    {
+        return *this;
+    }
+
+    int* new_mem = new int[other.cap];
+
+    for (int i = 0; i < other.len; i++)
+    {
+        new_mem[i] = other.mem[i];
+    }
+
+    delete[] mem;
+
+    mem = new_mem;
+    cap = other.cap;
+    len = other.len;
+
     return *this;
 }
 

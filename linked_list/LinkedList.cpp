@@ -56,7 +56,8 @@ int& LinkedList::operator[](int index)
 
 void LinkedList::append(int v)
 {
-    (!len)? head = tail = new Box(v, NULL) : tail = tail -> nextbox = new Box(v, NULL);
+    (!len)? head = tail = new Box(v,nullptr) : tail = tail -> nextbox = new Box(v,nullptr);
+    len++;
 }
 
 void LinkedList::prepend(int v)
@@ -66,9 +67,9 @@ void LinkedList::prepend(int v)
 }
 /*if(!len)
     {
-        head = tail = new Box(v, NULL);
+        head = tail = new Box(v,nullptr);
     }
     else
     {
-        tail = tail -> nextbox = new Box(v, NULL);
+        tail = tail -> nextbox = new Box(v,nullptr);
     }*/

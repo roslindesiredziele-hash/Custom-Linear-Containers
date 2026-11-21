@@ -118,3 +118,22 @@ TEST_CASE("Resize grows list")
     REQUIRE(L[4] == 0);
 }
 
+TEST_CASE("Resize shrinks list")
+{
+    LinkedList L;
+
+    for(int i = 1; i <= 5; i++)
+    {
+        L.append(i);
+    }
+
+    L.resize(3);
+
+    REQUIRE(L.getlength() == 3);
+
+    REQUIRE(L[0] == 1);
+    REQUIRE(L[1] == 2);
+    REQUIRE(L[2] == 3);
+}
+
+

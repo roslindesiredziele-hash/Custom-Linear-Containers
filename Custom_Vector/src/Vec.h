@@ -16,11 +16,11 @@ public:
     Vec(int n);
     ~Vec();
 
-    Vec& operator=(Vec&& other) noexcept;
-    Vec(Vec&& other) noexcept;
+    Vec& operator=(Vec&&) noexcept;
+    Vec(Vec&&) noexcept;
 
-    Vec(const Vec& other);
-    Vec& operator=(const Vec& other);
+    Vec(const Vec&);
+    Vec& operator=(const Vec);
     
 
     int& operator[](int);

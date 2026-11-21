@@ -1,117 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from mpl_toolkits.axes_grid1.inset_locator import inset_axes
-
-# ==================================================
-# Append Runtime Graph
-# ==================================================
 
 df = pd.read_csv("../data/data.csv")
-
-fig, ax = plt.subplots(figsize=(12, 7))
-
-ax.plot(
-    df["Size"],
-    df["VecMs"],
-    marker="o",
-    linewidth=2,
-    label="Vec"
-)
-
-ax.plot(
-    df["Size"],
-    df["StdVectorMs"],
-    marker="s",
-    linewidth=2,
-    label="std::vector"
-)
-
-ax.plot(
-    df["Size"],
-    df["LinkedListMs"],
-    marker="^",
-    linewidth=2,
-    label="LinkedList"
-)
-
-ax.set_xlabel("Number of Append Operations")
-ax.set_ylabel("Execution Time (ms)")
-
-ax.set_title(
-    "Append Performance Comparison"
-)
-
-ax.legend()
-
-ax.grid(
-    True,
-    linestyle="--",
-    alpha=0.5
-)
-
-# --------------------------------------------------
-# Inset: Vec vs std::vector
-# --------------------------------------------------
-
-axins = inset_axes(
-    ax,
-    width="40%",
-    height="40%",
-    loc="upper left"
-)
-
-axins.plot(
-    df["Size"],
-    df["VecMs"],
-    marker="o",
-    linewidth=2,
-    label="Vec"
-)
-
-axins.plot(
-    df["Size"],
-    df["StdVectorMs"],
-    marker="s",
-    linewidth=2,
-    label="std::vector"
-)
-
-# Zoom into region where differences matter
-axins.set_xlim(0, 120000)
-axins.set_ylim(0, 1.2)
-
-axins.set_title(
-    "Zoom: Vec vs std::vector",
-    fontsize=8
-)
-
-axins.grid(
-    True,
-    alpha=0.4
-)
-
-axins.legend(
-    fontsize=7
-)
-
-fig.subplots_adjust(
-    left=0.10,
-    right=0.97,
-    bottom=0.10,
-    top=0.92
-)
-
-plt.savefig(
-    "append_runtime.png",
-    dpi=300,
-    bbox_inches="tight"
-)
-
-plt.close(fig)
-
-# ==================================================
-# Capacity Growth Comparison
-# ==================================================
 
 capacity_df = pd.read_csv(
     "../data/capacity_growth.csv"
@@ -121,101 +11,282 @@ std_capacity_df = pd.read_csv(
     "../data/std_capacity_growth.csv"
 )
 
-fig, ax = plt.subplots(figsize=(12, 7))
+plt.rcParams.update({
+    "font.size": 11
+})
 
-ax.step(
-    capacity_df["Size"],
-    capacity_df["Capacity"],
-    where="post",
-    linewidth=3,
-    linestyle="--",
-    color="tab:blue",
+# ==================================================
+# 1.
+# Vec vs std::vector vs LinkedList
+# Small Inputs (0 - 5000)
+# ==================================================
+
+small = df[df["Size"] <= 5000]
+
+plt.figure(figsize=(12, 7))
+
+plt.plot(
+    small["Size"],
+    small["VecMs"],
+    marker="o",
+    linewidth=2,
     label="Vec"
 )
 
-ax.step(
-    std_capacity_df["Size"],
-    std_capacity_df["Capacity"],
-    where="post",
+plt.plot(
+    small["Size"],
+    small["StdVectorMs"],
+    marker="s",
     linewidth=2,
-    color="tab:orange",
     label="std::vector"
 )
 
-ax.set_xlabel("Elements Stored")
-ax.set_ylabel("Capacity")
-
-ax.set_title(
-    "Capacity Growth Comparison"
+plt.plot(
+    small["Size"],
+    small["LinkedListMs"],
+    marker="^",
+    linewidth=2,
+    label="LinkedList"
 )
 
-ax.legend()
+plt.title(
+    "Append Performance (0 - 5,000 Appends)"
+)
 
-ax.grid(
+plt.xlabel("Number of Append Operations")
+plt.ylabel("Execution Time (ms)")
+
+plt.grid(
     True,
     linestyle="--",
     alpha=0.5
 )
 
-# --------------------------------------------------
-# Inset: Initial Difference
-# --------------------------------------------------
+plt.legend()
 
-axins = inset_axes(
-    ax,
-    width="35%",
-    height="35%",
-    loc="upper left"
-)
-
-axins.step(
-    capacity_df["Size"],
-    capacity_df["Capacity"],
-    where="post",
-    linewidth=2,
-    linestyle="--",
-    color="tab:blue"
-)
-
-axins.step(
-    std_capacity_df["Size"],
-    std_capacity_df["Capacity"],
-    where="post",
-    linewidth=2,
-    color="tab:orange"
-)
-
-axins.set_xlim(0, 3)
-axins.set_ylim(0, 5)
-
-axins.set_title(
-    "Initial Growth",
-    fontsize=8
-)
-
-axins.grid(
-    True,
-    alpha=0.4
-)
-
-axins.legend(
-    ["Vec", "std::vector"],
-    fontsize=7
-)
-
-fig.subplots_adjust(
-    left=0.10,
-    right=0.97,
-    bottom=0.10,
-    top=0.92
-)
+plt.tight_layout()
 
 plt.savefig(
-    "capacity_growth.png",
-    dpi=300,
-    bbox_inches="tight"
+    "append_small_all.png",
+    dpi=300
 )
 
-plt.close(fig)
+# ==================================================
+# 2.
+# Vec vs std::vector
+# Very Small Inputs (0 - 1000)
+# ==================================================
+
+very_small = df[df["Size"] <= 1000]
+
+plt.figure(figsize=(12, 7))
+
+plt.plot(
+    very_small["Size"],
+    very_small["VecMs"],
+    marker="o",
+    linewidth=2,
+    label="Vec"
+)
+
+plt.plot(
+    very_small["Size"],
+    very_small["StdVectorMs"],
+    marker="s",
+    linewidth=2,
+    label="std::vector"
+)
+
+plt.title(
+    "Vec vs std::vector (0 - 1,000 Appends)"
+)
+
+plt.xlabel("Number of Append Operations")
+plt.ylabel("Execution Time (ms)")
+
+plt.grid(
+    True,
+    linestyle="--",
+    alpha=0.5
+)
+
+plt.legend()
+
+plt.tight_layout()
+
+plt.savefig(
+    "append_vectors_small.png",
+    dpi=300
+)
+
+# ==================================================
+# 3.
+# Vec vs std::vector vs LinkedList
+# Large Inputs (5,000 - 1,000,000)
+# ==================================================
+
+large = df[df["Size"] >= 5000]
+
+plt.figure(figsize=(12, 7))
+
+plt.plot(
+    large["Size"],
+    large["VecMs"],
+    marker="o",
+    linewidth=2,
+    label="Vec"
+)
+
+plt.plot(
+    large["Size"],
+    large["StdVectorMs"],
+    marker="s",
+    linewidth=2,
+    label="std::vector"
+)
+
+plt.plot(
+    large["Size"],
+    large["LinkedListMs"],
+    marker="^",
+    linewidth=2,
+    label="LinkedList"
+)
+
+plt.title(
+    "Append Performance (5,000 - 1,000,000 Appends)"
+)
+
+plt.xlabel("Number of Append Operations")
+plt.ylabel("Execution Time (ms)")
+
+plt.grid(
+    True,
+    linestyle="--",
+    alpha=0.5
+)
+
+plt.legend()
+
+plt.tight_layout()
+
+plt.savefig(
+    "append_large_all.png",
+    dpi=300
+)
+
+# ==================================================
+# 4.
+# Capacity Growth
+# Initial Growth (0 - 16)
+# ==================================================
+
+vec_small_cap = capacity_df[
+    capacity_df["Size"] <= 16
+]
+
+std_small_cap = std_capacity_df[
+    std_capacity_df["Size"] <= 16
+]
+
+plt.figure(figsize=(12, 7))
+
+plt.step(
+    vec_small_cap["Size"],
+    vec_small_cap["Capacity"],
+    where="post",
+    linewidth=3,
+    linestyle="--",
+    marker="o",
+    label="Vec"
+)
+
+plt.step(
+    std_small_cap["Size"],
+    std_small_cap["Capacity"],
+    where="post",
+    linewidth=2,
+    marker="s",
+    label="std::vector"
+)
+
+plt.title(
+    "Initial Capacity Growth (0 - 16 Elements)"
+)
+
+plt.xlabel("Elements Stored")
+plt.ylabel("Capacity")
+
+plt.grid(
+    True,
+    linestyle="--",
+    alpha=0.5
+)
+
+plt.legend()
+
+plt.tight_layout()
+
+plt.savefig(
+    "capacity_small.png",
+    dpi=300
+)
+
+# ==================================================
+# 5.
+# Capacity Growth
+# 16 - 524,289
+# ==================================================
+
+vec_large_cap = capacity_df[
+    capacity_df["Size"] >= 16
+]
+
+std_large_cap = std_capacity_df[
+    std_capacity_df["Size"] >= 16
+]
+
+plt.figure(figsize=(12, 7))
+
+plt.step(
+    vec_large_cap["Size"],
+    vec_large_cap["Capacity"],
+    where="post",
+    linewidth=3,
+    linestyle="--",
+    label="Vec"
+)
+
+plt.step(
+    std_large_cap["Size"],
+    std_large_cap["Capacity"],
+    where="post",
+    linewidth=2,
+    label="std::vector"
+)
+
+plt.title(
+    "Capacity Growth (16 - 524,289 Elements)"
+)
+
+plt.xlabel("Elements Stored")
+plt.ylabel("Capacity")
+
+plt.grid(
+    True,
+    linestyle="--",
+    alpha=0.5
+)
+
+plt.legend()
+
+plt.tight_layout()
+
+plt.savefig(
+    "capacity_large.png",
+    dpi=300
+)
 
 print("Graphs generated successfully.")
+
+plt.show()

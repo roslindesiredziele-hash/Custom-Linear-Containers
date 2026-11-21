@@ -102,12 +102,18 @@ void LinkedList::append(int v)
     {
         tail = tail -> nextbox = new Box(v,nullptr);
     }
-    
+
     len++;
 }
 
 void LinkedList::prepend(int v)
 {
     head = new Box(v, head);
-    (len++ == 0)? tail = head: head;
+
+    if(len++ == 0)
+    {
+        tail = head;
+    }
+
+    len++;
 }

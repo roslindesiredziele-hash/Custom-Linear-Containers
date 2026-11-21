@@ -21,41 +21,9 @@ int main()
 {
     vector<int> sizes =
     {
-        5,
-        10,
-        15,
-        20,
-        25,
-        30,
-        35,
-        40,
-        45,
-        50,
-        60,
-        70,
-        80,
-        90,
         100,
-        150,
-        200,
-        250,
-        300,
-        350,
-        400,
-        450,
         500,
-        600,
-        700,
-        800,
-        900,
         1000,
-        1200,
-        1400,
-        1600,
-        1800,
-        2000,
-        3000,
-        4000,
         5000,
         10000,
         20000,
@@ -67,7 +35,13 @@ int main()
 
     constexpr int runs = 20;
 
-    ofstream file("data/data.csv");
+    ofstream file("benchmarks/data/data.csv");
+
+    if(!file)
+    {
+        cerr << "Failed to open data.csv\n";
+        return 1;
+    }
 
     file << "Size," << "VecMs," << "StdVectorMs," << "LinkedListMs\n";
 

@@ -65,23 +65,6 @@ Vec::Vec(Vec&& other) noexcept
     other.mem = nullptr;
 }
 
-void Vec::swapInt(int &a, int &b)
-{
-    int temp = a;
-    a = b;
-    b = temp;
-}
-
-int Vec::size() const
-{
-    return len;
-}
-
-int Vec::capacity() const
-{
-    return cap;
-}
-
 int &Vec::operator[](int i)
 {
     if (i < 0 || i >= len)
@@ -111,6 +94,23 @@ std::ostream &operator<<(std::ostream &ostr, const Vec &v)
     ostr << "]";
 
     return ostr;
+}
+
+void Vec::swapInt(int &a, int &b)
+{
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+int Vec::size() const
+{
+    return len;
+}
+
+int Vec::capacity() const
+{
+    return cap;
 }
 
 int &Vec::get(int i)
@@ -200,9 +200,9 @@ void Vec::push(int el)
         {
             throw std::overflow_error("capacity overflow");
         }
-
-    resize(2 * cap);
-}
+        
+        resize(2 * cap);
+    }
 
     mem[len] = el;
     len++;

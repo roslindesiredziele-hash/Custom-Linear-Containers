@@ -22,6 +22,8 @@ class Linkedlist
 
     public:
     Linkedlist();
+    ~Linkedlist();
+
     
 };
 

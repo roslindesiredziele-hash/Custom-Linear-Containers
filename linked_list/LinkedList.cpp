@@ -57,6 +57,28 @@ LinkedList::LinkedList(LinkedList&& other) noexcept:
     other.len = 0;
 }
 
+LinkedList& LinkedList::operator=(LinkedList&& other) noexcept
+{
+    if(this == &other)
+    {
+        return *this;
+    }
+
+    clear();
+
+    head = other.head;
+    tail = other.tail;
+    len = other.len;
+
+    other.head = nullptr;
+    other.tail = nullptr;
+    other.len = 0;
+
+    return *this;
+}
+
+
+
 std::ostream& operator<< (std::ostream &ostr, const class LinkedList &L)
 {
     struct LinkedList::Box * ptr = L.head;

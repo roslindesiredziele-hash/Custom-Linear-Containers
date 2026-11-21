@@ -5,13 +5,16 @@
 Vec::Vec(int n)
 {
     if (n < 0)
-        throw std::invalid_argument(
-            "cannot initialize with negative capacity"
-        );
+        throw std::invalid_argument("cannot initialize with negative capacity");
 
     cap = std::max(1, n);
     len = 0;
     mem = new int[cap];
+}
+
+Vec::~Vec()
+{
+    delete[] mem;
 }
 
 Vec::Vec(const Vec &other) : cap(other.cap),
@@ -32,9 +35,24 @@ Vec &Vec::operator=(Vec other)
     return *this;
 }
 
-Vec::~Vec()
+Vec& Vec::operator=(Vec&& other) noexcept
 {
+    if (this == &other)
+    {
+        return *this;
+    }
+
     delete[] mem;
+
+    cap = other.cap;
+    len = other.len;
+    mem = other.mem;
+
+    other.cap = 0;
+    other.len = 0;
+    other.mem = nullptr;
+
+    return *this;
 }
 
 Vec::Vec(Vec&& other) noexcept
@@ -140,34 +158,32 @@ void Vec::resize(int new_cap)
 
 void Vec::erase(int index)
 {
-    if(index < 1 || index > len)
+    if(index < 0 || index >= len)
     {
-        throw std::out_of_range("There is no element at the requested position");
+        throw std::out_of_range("Index out of range");
     }
 
     for(int i = index; i < len; i++)
     {
-        swapInt(mem[i-1],mem[i]);
+        mem[i] = mem[i + 1];
     }
 
     len--;
 }
 
-void Vec::erase(int a, int b)
+void Vec::erase(int first, int last)
 {
-    if (a > b)
-        swapInt(a, b);
+    if (first > last)
+        swapInt(first, last);
 
-    if (a < 1 || b > len)
+    if (first < 0 || last >= len)
     {
-        throw std::out_of_range(
-            "the range selected is out of the memory");
+        throw std::out_of_range("the range selected is out of bounds");
     }
 
-    int first = a - 1;
-    int removed = b - a + 1;
+    int removed = last - first + 1;
 
-    for (int i = first; i + removed < len; i++)
+    for (int i = first ; i + removed < len; i++)
     {
         mem[i] = mem[i + removed];
     }

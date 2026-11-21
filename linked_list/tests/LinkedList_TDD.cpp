@@ -150,6 +150,24 @@ TEST_CASE("Back throws for empty list")
         std::logic_error);
 }
 
+TEST_CASE("Clear removes all elements")
+{
+    LinkedList L;
+
+    L.append(1);
+    L.append(2);
+    L.append(3);
+
+    L.clear();
+
+    REQUIRE(L.empty());
+    REQUIRE(L.getlength() == 0);
+
+    REQUIRE_THROWS_AS(
+        L.front(),
+        std::logic_error);
+}
+
 TEST_CASE("Resize grows list")
 {
     LinkedList L;

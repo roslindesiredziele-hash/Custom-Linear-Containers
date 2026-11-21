@@ -79,7 +79,7 @@ LinkedList& LinkedList::operator=(LinkedList&& other) noexcept
 
 std::ostream& operator<< (std::ostream &ostr, const class LinkedList &L)
 {
-    struct LinkedList::Box * ptr = L.head;
+    const LinkedList::Box * ptr = L.head;
     ostr << " [ ";
     
     for(int i = 0; i < L.len; i++)

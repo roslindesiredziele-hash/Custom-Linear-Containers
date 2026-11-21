@@ -47,8 +47,8 @@ class LinkedList
 
     void clear();
     void resize(int);
-     void erase(int);
-     void erase(int, int);
+    void erase(int);
+    void erase(int, int);
 
 };
 

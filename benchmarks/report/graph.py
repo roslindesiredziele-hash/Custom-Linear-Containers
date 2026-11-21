@@ -61,8 +61,11 @@ plt.step(
     capacity_df["Size"],
     capacity_df["Capacity"],
     where="post",
-    linewidth=2
+    linewidth=2,
+    label="Vec Capacity"
 )
+
+plt.legend()
 
 plt.xlabel("Elements Stored")
 plt.ylabel("Capacity")

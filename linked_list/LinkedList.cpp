@@ -110,7 +110,7 @@ void LinkedList::prepend(int v)
 {
     head = new Box(v, head);
 
-    if(len++ == 0)
+    if(len == 0)
     {
         tail = head;
     }

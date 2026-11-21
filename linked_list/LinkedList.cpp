@@ -43,6 +43,17 @@ std::ostream& operator<< (std::ostream &ostr, class LinkedList &L)
     }
 }
 
+int& LinkedList::operator[](int index)
+{
+    Box* ptr = head;
+    for(int i = 0; i < index; i++)
+    {
+        ptr = ptr -> nextbox;
+    }
+    
+    return ptr->value;
+}
+
 void LinkedList::append(int v)
 {
     (!len)? head = tail = new Box(v, NULL) : tail = tail -> nextbox = new Box(v, NULL);

@@ -61,6 +61,25 @@ TEST_CASE("Constructor initializes empty vector")
     CHECK(v.empty());
 }
 
+TEST_CASE("Move assignment transfers ownership")
+{
+    Vec a(2);
+
+    a.push(10);
+    a.push(20);
+
+    Vec b(1);
+
+    b = std::move(a);
+
+    CHECK(b.size() == 2);
+    CHECK(b[0] == 10);
+    CHECK(b[1] == 20);
+
+    CHECK(a.size() == 0);
+    CHECK(a.capacity() == 0);
+}
+
 TEST_CASE("Negative capacity throws")
 {
     REQUIRE_THROWS_AS(

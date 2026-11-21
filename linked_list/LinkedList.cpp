@@ -28,3 +28,15 @@ void LinkedList::clear()
         ptr = b;
     }
 }
+
+void LinkedList::append(int v)
+{
+    if(!len)
+    {
+        head = tail = new Box(v, NULL);
+    }
+    else
+    {
+        tail = tail -> nextbox = new Box(v, NULL);
+    }
+}

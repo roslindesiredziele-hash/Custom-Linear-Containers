@@ -49,8 +49,6 @@ plt.savefig(
     dpi=300
 )
 
-plt.show()
-
 capacity_df = pd.read_csv(
     "../data/capacity_growth.csv"
 )
@@ -96,3 +94,5 @@ plt.savefig(
     "capacity_growth.png",
     dpi=300
 )
+
+plt.show()

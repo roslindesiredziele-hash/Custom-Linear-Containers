@@ -29,7 +29,8 @@ class Linkedlist
 
     int getlength() {return len;}
     void append(int);
-    
+    void prepend(int);
+
 };
 
 #endif

@@ -163,7 +163,7 @@ void Vec::erase(int index)
         throw std::out_of_range("Index out of range");
     }
 
-    for(int i = index; i < len; i++)
+    for(int i = index; i < len - 1; i++)
     {
         mem[i] = mem[i + 1];
     }

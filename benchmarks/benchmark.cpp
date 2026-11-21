@@ -60,12 +60,12 @@ int main()
 
     file.close();
 
-    ofstream file("benchmarks/data/capacity_growth.csv");
+    ofstream capacityfile("benchmarks/data/capacity_growth.csv");
     
-    file << "Size,Capacity\n";
+    capacityfile << "Size,Capacity\n";
     Vec v(1);
     
-    file << 0 << "," << v.capacity() << '\n';
+    capacityfile << 0 << "," << v.capacity() << '\n';
     
     for(int i = 0; i < 1000000; i++)
     {
@@ -74,9 +74,11 @@ int main()
         
         if(v.capacity() != oldCapacity)
         {
-            file << v.size() << "," << v.capacity() << '\n';
+            capacityfile << v.size() << "," << v.capacity() << '\n';
         }
     }
+
+    capacityFile.close();
     
     cout << "Benchmark complete.\n";
 

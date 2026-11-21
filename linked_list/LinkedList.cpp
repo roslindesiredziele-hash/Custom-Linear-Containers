@@ -45,6 +45,10 @@ std::ostream& operator<< (std::ostream &ostr, class LinkedList &L)
             ostr << "; ";
         ptr = ptr->nextbox;
     }
+
+    ostr << "]";
+    
+    return ostr << "end";
 }
 
 int& LinkedList::operator[](int index)

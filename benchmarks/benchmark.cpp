@@ -78,7 +78,29 @@ int main()
         }
     }
 
-    capacityFile.close();
+    capacityfile.close();
+
+    ofstream stdCapacityfile("benchmarks/data/std_capacity_growth.csv");
+    
+    stdCapacityfile << "Size,Capacity\n";
+    
+    std::vector<int> stdVec;
+    
+    stdCapacityfile << 0 << "," << stdVec.capacity() << '\n';
+    
+    for(int i = 0; i < 1000000; i++)
+    {
+        size_t oldCapacity = stdVec.capacity();
+        
+        stdVec.push_back(i);
+        
+        if(stdVec.capacity() != oldCapacity)
+        {
+            stdCapacityfile << stdVec.size() << "," << stdVec.capacity() << '\n';
+        }
+    }
+    
+    stdCapacityfile.close();
     
     cout << "Benchmark complete.\n";
 

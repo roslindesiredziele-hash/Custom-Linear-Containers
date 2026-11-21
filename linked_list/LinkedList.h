@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-class Linkedlist
+class LinkedList
 {
     private:
     struct Box
@@ -21,10 +21,12 @@ class Linkedlist
     int len;
 
     public:
-    Linkedlist();
-    ~Linkedlist();
+    LinkedList();
+    ~LinkedList();
+    LinkedList(const LinkedList& other);
+    
 
-    friend std::ostream &operator<<(std::ostream &ostr, class Linkedlist &L);
+    friend std::ostream &operator<<(std::ostream &ostr, class LinkedList &L);
 
     int& operator[](int);
     const int& operator[](int) const;

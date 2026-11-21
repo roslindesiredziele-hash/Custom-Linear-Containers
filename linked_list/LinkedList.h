@@ -22,6 +22,7 @@ class Linkedlist
 
     public:
     Linkedlist();
+    
 };
 
 #endif

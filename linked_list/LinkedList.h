@@ -13,6 +13,11 @@ class Linkedlist
         value(v), nextbox(b)
         {}
     };
+
+    struct Box* head;
+    struct Box* tail;
+    int len;
+    
     
 };
 

@@ -94,7 +94,15 @@ const int& LinkedList::operator[](int index) const
 
 void LinkedList::append(int v)
 {
-    (!len)? head = tail = new Box(v,nullptr) : tail = tail -> nextbox = new Box(v,nullptr);
+    if(!len)
+    {
+        head = tail = new Box(v,nullptr);
+    }
+    else
+    {
+        tail = tail -> nextbox = new Box(v,nullptr);
+    }
+    
     len++;
 }
 
@@ -103,11 +111,3 @@ void LinkedList::prepend(int v)
     head = new Box(v, head);
     (len++ == 0)? tail = head: head;
 }
-/*if(!len)
-    {
-        head = tail = new Box(v,nullptr);
-    }
-    else
-    {
-        tail = tail -> nextbox = new Box(v,nullptr);
-    }*/

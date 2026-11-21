@@ -44,6 +44,20 @@ TEST_CASE("Copy assignment performs deep copy")
     REQUIRE(copy[0] == 100);
 }
 
+TEST_CASE("Move constructor transfers ownership")
+{
+    LinkedList original;
+
+    original.append(1);
+    original.append(2);
+
+    LinkedList moved(std::move(original));
+
+    REQUIRE(moved.getlength() == 2);
+
+    REQUIRE(original.empty());
+}
+
 TEST_CASE("Append increases size")
 {
     LinkedList L;

@@ -29,14 +29,23 @@ void LinkedList::clear()
     }
 }
 
+
+
 void LinkedList::append(int v)
 {
-    if(!len)
+    (!len)? head = tail = new Box(v, NULL) : tail = tail -> nextbox = new Box(v, NULL);
+}
+
+void LinkedList::prepend(int v)
+{
+    head = new Box(v, head);
+    (len == 0)? tail = head: head;
+}
+/*if(!len)
     {
         head = tail = new Box(v, NULL);
     }
     else
     {
         tail = tail -> nextbox = new Box(v, NULL);
-    }
-}
+    }*/

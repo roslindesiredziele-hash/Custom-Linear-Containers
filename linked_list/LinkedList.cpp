@@ -27,6 +27,10 @@ void LinkedList::clear()
         delete ptr;
         ptr = b;
     }
+
+    head = nullptr;
+    tail = nullptr;
+    len = 0;
 }
 
 std::ostream& operator<< (std::ostream &ostr, class LinkedList &L)

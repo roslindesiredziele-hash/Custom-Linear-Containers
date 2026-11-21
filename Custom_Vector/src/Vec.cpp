@@ -85,14 +85,14 @@ int Vec::capacity() const
 int &Vec::operator[](int i)
 {
     if (i < 0 || i >= len)
-        throw std::out_of_range("indexex out of range");
+        throw std::out_of_range("index out of range");
     return mem[i];
 }
 
 const int &Vec::operator[](int i) const
 {
     if (i < 0 || i >= len)
-        throw std::out_of_range("indexex out of range");
+        throw std::out_of_range("index out of range");
     return mem[i];
 }
 
@@ -116,14 +116,14 @@ std::ostream &operator<<(std::ostream &ostr, const Vec &v)
 int &Vec::get(int i)
 {
     if (i < 0 || i >= len)
-        throw std::out_of_range("indexex out of range");
+        throw std::out_of_range("index out of range");
     return mem[i];
 }
 
 const int &Vec::get(int i) const
 {
     if (i < 0 || i >= len)
-        throw std::out_of_range("indexex out of range");
+        throw std::out_of_range("index out of range");
     return mem[i];
 }
 

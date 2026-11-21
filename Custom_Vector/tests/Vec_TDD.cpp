@@ -80,6 +80,27 @@ TEST_CASE("Move assignment transfers ownership")
     CHECK(a.capacity() == 0);
 }
 
+TEST_CASE("Move assignment replaces existing contents")
+{
+    Vec a(2);
+    a.push(1);
+    a.push(2);
+
+    Vec b(3);
+    b.push(10);
+    b.push(20);
+    b.push(30);
+
+    b = std::move(a);
+
+    CHECK(b.size() == 2);
+    CHECK(b[0] == 1);
+    CHECK(b[1] == 2);
+
+    CHECK(a.size() == 0);
+    CHECK(a.capacity() == 0);
+}
+
 TEST_CASE("Negative capacity throws")
 {
     REQUIRE_THROWS_AS(

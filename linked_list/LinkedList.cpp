@@ -63,7 +63,7 @@ void LinkedList::append(int v)
 void LinkedList::prepend(int v)
 {
     head = new Box(v, head);
-    (len == 0)? tail = head: head;
+    (len++ == 0)? tail = head: head;
 }
 /*if(!len)
     {

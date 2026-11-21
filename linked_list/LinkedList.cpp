@@ -119,7 +119,7 @@ const int& LinkedList::operator[](int index) const
         throw std::out_of_range("Index out of range");
     }
 
-    Box* ptr = head;
+    const Box* ptr = head;
 
     for(int i = 0; i < index; i++)
     {

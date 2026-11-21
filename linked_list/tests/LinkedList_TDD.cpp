@@ -153,3 +153,21 @@ TEST_CASE("Erase removes one element")
     REQUIRE(L[1] == 3);
     REQUIRE(L[2] == 4);
 }
+
+TEST_CASE("Erase range removes multiple elements")
+{
+    LinkedList L;
+
+    for(int i = 1; i <= 6; i++)
+    {
+        L.append(i);
+    }
+
+    L.erase(1, 3);
+
+    REQUIRE(L.getlength() == 3);
+
+    REQUIRE(L[0] == 1);
+    REQUIRE(L[1] == 5);
+    REQUIRE(L[2] == 6);
+}

@@ -77,8 +77,6 @@ LinkedList& LinkedList::operator=(LinkedList&& other) noexcept
     return *this;
 }
 
-
-
 std::ostream& operator<< (std::ostream &ostr, const class LinkedList &L)
 {
     struct LinkedList::Box * ptr = L.head;
@@ -140,6 +138,18 @@ bool LinkedList::empty() const
 {
     return len == 0;
 }
+
+int& LinkedList::front()
+{
+    if(empty())
+    {
+        throw std::logic_error("List is empty");
+    }
+
+    return head->value;
+}
+
+
 
 void LinkedList::append(int v)
 {

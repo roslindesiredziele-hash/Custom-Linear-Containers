@@ -47,58 +47,6 @@ LinkedList& LinkedList::operator=(const LinkedList& other)
     return *this;
 }
 
-int LinkedList::getlength() const
-{
-    return len;
-}
-
-bool LinkedList::empty() const
-{
-    return len == 0;
-}
-
-void LinkedList::clear()
-{
-    Box* ptr = head;
-
-    while(ptr)
-    {
-        Box* b = ptr -> nextbox;
-
-        delete ptr;
-        ptr = b;
-    }
-
-    head = nullptr;
-    tail = nullptr;
-    len = 0;
-}
-
-void LinkedList::resize(int newSize)
-{
-    if(newSize < 0)
-    {
-        throw std::invalid_argument("Negative size");
-    }
-
-    if(newSize == len)
-    {
-        return;
-    }
-
-    // Grow
-    while(len < newSize)
-    {
-        append(0);
-    }
-
-    // Shrink
-    while(len > newSize)
-    {
-        erase(len - 1);
-    }
-}
-
 std::ostream& operator<< (std::ostream &ostr, const class LinkedList &L)
 {
     struct LinkedList::Box * ptr = L.head;
@@ -151,6 +99,16 @@ const int& LinkedList::operator[](int index) const
     return ptr->value;
 }
 
+int LinkedList::getlength() const
+{
+    return len;
+}
+
+bool LinkedList::empty() const
+{
+    return len == 0;
+}
+
 void LinkedList::append(int v)
 {
     if(!len)
@@ -176,3 +134,46 @@ void LinkedList::prepend(int v)
 
     len++;
 }
+
+void LinkedList::clear()
+{
+    Box* ptr = head;
+
+    while(ptr)
+    {
+        Box* b = ptr -> nextbox;
+
+        delete ptr;
+        ptr = b;
+    }
+
+    head = nullptr;
+    tail = nullptr;
+    len = 0;
+}
+
+void LinkedList::resize(int newSize)
+{
+    if(newSize < 0)
+    {
+        throw std::invalid_argument("Negative size");
+    }
+
+    if(newSize == len)
+    {
+        return;
+    }
+
+    // Grow
+    while(len < newSize)
+    {
+        append(0);
+    }
+
+    // Shrink
+    while(len > newSize)
+    {
+        erase(len - 1);
+    }
+}
+

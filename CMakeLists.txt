@@ -8,8 +8,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 enable_testing()
 
-add_library
-(
+add_library(
     Vec
     src/Vec.cpp
 )
@@ -59,8 +58,7 @@ target_include_directories(
     external
 )
 
-add_test
-(
+add_test(
     NAME VecTests
     COMMAND Vec_TDD
 )

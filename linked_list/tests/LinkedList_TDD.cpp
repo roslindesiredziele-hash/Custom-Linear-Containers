@@ -42,3 +42,15 @@ TEST_CASE("Prepend inserts at beginning")
     REQUIRE(L[2] == 10);
 }
 
+TEST_CASE("Front and back return correct elements")
+{
+    LinkedList L;
+
+    L.append(10);
+    L.append(20);
+    L.append(30);
+
+    REQUIRE(L.front() == 10);
+    REQUIRE(L.back() == 30);
+}
+

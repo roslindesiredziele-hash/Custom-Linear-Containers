@@ -10,26 +10,32 @@ enable_testing()
 
 add_library(
     Vec
-    src/Vec.cpp
+    Custom_Vector/src/Vec.cpp
 )
 
 add_library(
     LinkedList
-    linked_list/src/LinkedList.cpp
+    Linked_List/src/LinkedList.cpp
 )
 
 target_include_directories(
-    Vec PUBLIC src
+    Vec PUBLIC
+    Custom_Vector/src
+)
+
+target_include_directories(
+    LinkedList PUBLIC
+    Linked_List/src
 )
 
 add_executable(
     Vec_TDD
-    tests/Vec_TDD.cpp
+    Custom_Vector/tests/Vec_TDD.cpp
 )
 
 add_executable(
     LinkedList_TDD
-    linked_list/tests/LinkedList_TDD.cpp
+    Linked_List/tests/LinkedList_TDD.cpp
 )
 
 target_link_libraries(
@@ -42,19 +48,15 @@ target_link_libraries(
     LinkedList
 )
 
-target_include_directories(Vec_TDD PRIVATE
-    src
+target_include_directories(
+    Vec_TDD PRIVATE
+    Custom_Vector/src
     external
 )
 
 target_include_directories(
-    LinkedList PUBLIC
-    linked_list/src
-)
-
-target_include_directories(
     LinkedList_TDD PRIVATE
-    linked_list/src
+    Linked_List/src
     external
 )
 

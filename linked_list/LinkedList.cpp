@@ -18,6 +18,11 @@ int LinkedList::getlength() const
     return len;
 }
 
+bool LinkedList::empty() const
+{
+    return len == 0;
+}
+
 void LinkedList::clear()
 {
     Box* ptr = head;

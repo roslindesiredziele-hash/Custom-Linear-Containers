@@ -18,5 +18,13 @@ int LinkedList::getlength()
 
 void LinkedList::clear()
 {
-    
+    Box* ptr = head;
+
+    while(ptr)
+    {
+        Box* b = ptr -> nextbox;
+
+        delete ptr;
+        ptr = b;
+    }
 }

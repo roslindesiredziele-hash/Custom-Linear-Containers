@@ -76,3 +76,27 @@ double BenchmarkStdVector(int size)
         freq);
 }
 
+double BenchmarkLinkedList(int size)
+{
+    LARGE_INTEGER freq;
+    LARGE_INTEGER start;
+    LARGE_INTEGER end;
+
+    QueryPerformanceFrequency(&freq);
+
+    Vec v(1);
+
+    QueryPerformanceCounter(&start);
+
+    for(int i = 0; i < size; i++)
+    {
+        v.push(i);
+    }
+
+    QueryPerformanceCounter(&end);
+
+    return MeasureMilliseconds(
+        start,
+        end,
+        freq);
+}

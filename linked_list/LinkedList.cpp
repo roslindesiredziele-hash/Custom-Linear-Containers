@@ -169,7 +169,16 @@ int& LinkedList::back()
     return tail->value;
 }
 
+const int& LinkedList::back() const
+{
+    if(empty())
+    {
+        throw std::logic_error(
+            "List is empty");
+    }
 
+    return tail->value;
+}
 
 void LinkedList::append(int v)
 {

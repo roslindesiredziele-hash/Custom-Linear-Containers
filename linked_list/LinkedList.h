@@ -25,7 +25,9 @@ class Linkedlist
     ~Linkedlist();
 
     friend std::ostream &operator<<(std::ostream &ostr, class Linkedlist &L);
-    
+    int& operator[](int);
+
+   
 };
 
 #endif

@@ -12,6 +12,21 @@ TEST_CASE("Default constructor creates empty list")
     REQUIRE(L.getlength() == 0);
 }
 
+TEST_CASE("Copy constructor performs deep copy")
+{
+    LinkedList original;
+
+    original.append(10);
+    original.append(20);
+
+    LinkedList copy(original);
+
+    copy[0] = 999;
+
+    REQUIRE(original[0] == 10);
+    REQUIRE(copy[0] == 999);
+}
+
 TEST_CASE("Append increases size")
 {
     LinkedList L;

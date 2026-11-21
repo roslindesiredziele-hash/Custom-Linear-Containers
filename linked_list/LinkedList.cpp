@@ -6,4 +6,7 @@ Linkedlist::Linkedlist():
 
  }
 
- 
+int Linkedlist::getlength()
+{
+    return len;
+}

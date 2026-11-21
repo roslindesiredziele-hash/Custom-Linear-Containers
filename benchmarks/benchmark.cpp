@@ -8,11 +8,46 @@
 
 using namespace std;
 
+double BenchmarkVec(int size);
+
+double MeasureMilliseconds(LARGE_INTEGER start, LARGE_INTEGER end, LARGE_INTEGER freq);
+
+
+int main()
+{
+    return 0;
+}
+
+
 double MeasureMilliseconds(LARGE_INTEGER start, LARGE_INTEGER end, LARGE_INTEGER freq)
 {
     return static_cast<double>(end.QuadPart - start.QuadPart) * 1000.0 / freq.QuadPart;
 }
 
+double BenchmarkVec(int size)
+{
+    LARGE_INTEGER freq;
+    LARGE_INTEGER start;
+    LARGE_INTEGER end;
+
+    QueryPerformanceFrequency(&freq);
+
+    Vec v(1);
+
+    QueryPerformanceCounter(&start);
+
+    for(int i = 0; i < size; i++)
+    {
+        v.push(i);
+    }
+
+    QueryPerformanceCounter(&end);
+
+    return MeasureMilliseconds(
+        start,
+        end,
+        freq);
+}
 
 
 

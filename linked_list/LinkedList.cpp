@@ -177,3 +177,45 @@ void LinkedList::resize(int newSize)
     }
 }
 
+void LinkedList::erase(int index)
+{
+    if(index < 0 || index >= len)
+    {
+        throw std::out_of_range("Index out of range");
+    }
+
+    if(index == 0)
+    {
+        Box* doomed = head;
+        head = head->nextbox;
+        delete doomed;
+        len--;
+
+        if(len == 0)
+        {
+            tail = nullptr;
+        }
+
+        return;
+    }
+
+    Box* prev = head;
+
+    for(int i = 0; i < index - 1; i++)
+    {
+        prev = prev->nextbox;
+    }
+
+    Box* doomed = prev -> nextbox;
+
+    prev -> nextbox = doomed -> nextbox;
+
+    if(doomed == tail)
+    {
+        tail = prev;
+    }
+
+    delete doomed;
+
+    len--;
+}

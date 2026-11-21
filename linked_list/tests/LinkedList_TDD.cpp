@@ -59,6 +59,21 @@ TEST_CASE("Move constructor transfers ownership")
 
     REQUIRE(original.empty());
 }
+TEST_CASE("Move assignment transfers ownership")
+{
+    LinkedList original;
+
+    original.append(1);
+    original.append(2);
+
+    LinkedList moved;
+
+    moved = std::move(original);
+
+    REQUIRE(moved.getlength() == 2);
+
+    REQUIRE(original.empty());
+}
 
 TEST_CASE("Operator[] throws for invalid index")
 {

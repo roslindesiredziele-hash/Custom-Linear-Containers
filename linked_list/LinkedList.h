@@ -29,11 +29,12 @@ class Linkedlist
     const int& operator[](int) const;
 
     int getlength();
-    
+
     void append(int);
     void prepend(int);
 
     void clear();
+    void resize(int);
 
 };
 

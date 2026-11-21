@@ -111,7 +111,14 @@ TEST_CASE("Front throws for empty list")
         std::logic_error);
 }
 
+TEST_CASE("Back throws for empty list")
+{
+    LinkedList L;
 
+    REQUIRE_THROWS_AS(
+        L.back(),
+        std::logic_error);
+}
 
 TEST_CASE("Resize grows list")
 {

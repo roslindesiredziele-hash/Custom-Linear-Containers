@@ -1,17 +1,18 @@
-# Custom Linear Containers
+# Dangerous Minds – Custom Linear Containers
 
 [![C++ CI](https://github.com/roslindesiredziele-hash/Custom-Linear-Containers/actions/workflows/ci.yml/badge.svg)](https://github.com/roslindesiredziele-hash/Custom-Linear-Containers/actions/workflows/ci.yml)
 
 A collection of custom linear data structures implemented in modern C++, accompanied by automated testing, continuous integration, and benchmark-driven performance analysis.
 
-The project contains:
+This repository contains a complete solution to the **Dangerous Minds** assignment, including:
 
-- **Vec** - a dynamic array inspired by `std::vector`
-- **LinkedList** - a singly linked list implementation
-- Comprehensive unit tests using **Catch2**
-- Automated test execution with **CTest**
-- Continuous integration through **GitHub Actions**
-- Benchmarking and complexity analysis for append operations
+- **Vec** – a custom vector-like container implemented as a dynamically reallocated array using table doubling.
+- **LinkedList** – a custom singly linked list implementation.
+- Comprehensive unit tests using **Catch2**.
+- Automated test execution using **CTest**.
+- Continuous integration using **GitHub Actions**.
+- Performance benchmarks comparing `Vec`, `std::vector`, and `LinkedList`.
+- Capacity-growth experiments that make vector reallocations directly observable.
 
 ---
 
@@ -52,15 +53,21 @@ The project contains:
 
 ## Assignment Goals
 
-This project was developed to explore:
+This project was developed as a solution to the **Dangerous Minds** assignment.
 
-- Dynamic memory management
-- Resource ownership and RAII
-- Copy and move semantics
-- Iterator support
-- Amortized complexity analysis
-- Software testing practices
-- Empirical performance evaluation
+The assignment required:
+
+- Implementing a custom vector-like container for integers.
+- Using dynamic reallocation with table doubling.
+- Providing read and write access to elements.
+- Supporting appending, resizing and deletion operations.
+- Measuring running times for large sequences of append operations.
+- Comparing append performance against `std::vector`.
+- Comparing append performance against a custom linked list.
+- Investigating when reallocations occur.
+- Demonstrating amortized O(1) append complexity.
+
+To satisfy these requirements, the project contains a custom dynamic array implementation (`Vec`), a custom singly linked list implementation (`LinkedList`), automated tests and a benchmark suite.
 
 ---
 
@@ -68,27 +75,42 @@ This project was developed to explore:
 
 ### Vec
 
-A dynamic array implementation inspired by `std::vector`.
+`Vec` is a dynamic array implementation inspired by `std::vector`.
 
-Features:
+The container stores integers in contiguous memory and automatically grows using table doubling.
 
-- Automatic capacity growth
-- Amortized O(1) append
-- Deep copy semantics
-- Move semantics
+Implemented functionality:
+
+- Element access through `operator[]`
+- Element access through `get()`
+- `first()` and `last()`
+- `push()`
+- `pop()`
+- `resize()` (supports growth and truncation when downsizing)
+- `deleteMe()` for deletion of a single element
+- `deleteUs()` for deletion of a range of elements
+- `linearSearch()`
+- `binarySearch()`
+- `reverse()`
+- `rotate()`
 - Iterator support
+
+The container doubles its capacity whenever the current storage becomes full, providing amortized **O(1)** append operations.
 
 ### LinkedList
 
-A singly linked list implementation.
+A custom singly linked list implementation.
 
-Features:
+Features include:
 
 - O(1) append
+- O(1) prepend
+- Dynamic node allocation
 - Deep copy semantics
 - Move semantics
-- Dynamic node allocation
-- Element insertion and deletion
+- Element insertion
+- Element deletion
+- Search functionality
 
 ---
 
@@ -256,7 +278,11 @@ benchmarks/report/
 
 ![Append Performance Small Inputs](benchmarks/report/append_small_all.png)
 
-For small workloads, all three containers exhibit low execution times. Even at these scales, LinkedList begins to diverge from the vector-based containers.
+For small workloads, all three containers complete their work quickly. Even at these scales, LinkedList already begins to diverge from the vector-based containers.
+
+Although append operations are theoretically O(1) for all three structures, LinkedList performs a dynamic memory allocation for every inserted element. In contrast, Vec and std::vector reuse contiguous memory that was allocated during previous growth operations.
+
+The graph demonstrates that the custom Vec follows the performance characteristics of std::vector from the beginning of execution.
 
 ---
 
@@ -264,7 +290,11 @@ For small workloads, all three containers exhibit low execution times. Even at t
 
 ![Vec vs std::vector Small Inputs](benchmarks/report/append_vectors_small.png)
 
-A closer comparison reveals that the custom `Vec` implementation performs similarly to `std::vector`. The observed differences remain small throughout the measured range.
+This graph isolates the two vector implementations.
+
+The custom Vec implementation remains consistently close to std::vector. The small performance gap is likely caused by implementation details and compiler optimizations rather than differences in algorithmic behaviour.
+
+The similarity of the curves demonstrates that both containers rely on the same underlying strategy: contiguous storage combined with geometric growth.
 
 ---
 
@@ -272,7 +302,17 @@ A closer comparison reveals that the custom `Vec` implementation performs simila
 
 ![Append Performance Large Inputs](benchmarks/report/append_large_all.png)
 
-As the number of append operations increases, the performance gap becomes increasingly visible. Both vector-based containers scale efficiently while LinkedList becomes substantially slower.
+As input sizes increase, the performance characteristics become significantly more apparent.
+
+Both Vec and std::vector scale efficiently and remain within only a few milliseconds even for one million append operations. LinkedList becomes substantially slower because every insertion requires node allocation and pointer manipulation.
+
+At one million append operations:
+
+- `std::vector` required approximately **2.94 ms**
+- `Vec` required approximately **4.92 ms**
+- `LinkedList` required approximately **52.03 ms**
+
+The experiment demonstrates that contiguous storage is substantially more efficient than repeated node allocation for this workload.
 
 ---
 
@@ -280,7 +320,14 @@ As the number of append operations increases, the performance gap becomes increa
 
 ![Initial Capacity Growth](benchmarks/report/capacity_small.png)
 
-The only meaningful difference between the two vector implementations occurs during initialization. `Vec` begins with capacity one, whereas `std::vector` starts with capacity zero and allocates storage when the first element is inserted.
+The benchmark records capacity whenever a reallocation occurs.
+
+The only observable difference between the vector implementations occurs during initialization:
+
+- `std::vector` begins with capacity 0.
+- `Vec` begins with capacity 1.
+
+After the first insertion both containers quickly converge to the same growth strategy.
 
 ---
 
@@ -288,42 +335,27 @@ The only meaningful difference between the two vector implementations occurs dur
 
 ![Capacity Growth Comparison](benchmarks/report/capacity_large.png)
 
-Beyond the initial allocation, both containers exhibit identical growth behaviour. Capacity doubles whenever the current storage becomes exhausted.
+This graph makes reallocation events directly visible.
 
----
+Both implementations exhibit identical capacity growth:
 
-### Numerical Results
+```text
+1 → 2 → 4 → 8 → 16 → 32 → 64 → ...
+```
 
-| Size | Vec (ms) | std::vector (ms) | LinkedList (ms) |
-|------:|------:|------:|------:|
-| 100 | 0.00169 | 0.00108 | 0.00364 |
-| 500 | 0.00324 | 0.00205 | 0.01968 |
-| 1,000 | 0.00569 | 0.00215 | 0.03701 |
-| 5,000 | 0.03607 | 0.02806 | 0.26683 |
-| 10,000 | 0.07055 | 0.05746 | 0.45885 |
-| 20,000 | 0.13684 | 0.10774 | 1.06418 |
-| 50,000 | 0.36705 | 0.27616 | 2.62000 |
-| 100,000 | 0.59510 | 0.46443 | 5.21831 |
-| 500,000 | 2.10927 | 1.36735 | 25.22770 |
-| 1,000,000 | 4.91755 | 2.94202 | 52.03480 |
+Reallocations occur whenever available storage becomes exhausted. The benchmark recorded reallocation points at:
 
----
+```text
+2, 3, 5, 9, 17, 33, 65, 129, ...
+```
 
-### Observations
+for both implementations.
 
-#### Runtime Behaviour
-
-| Container | Time for 1,000,000 Appends |
-|------------|-----------:|
-| std::vector | 2.94 ms |
-| Vec | 4.92 ms |
-| LinkedList | 52.03 ms |
-
-The custom `Vec` implementation achieves performance comparable to `std::vector`. Although `std::vector` remains faster, the difference is relatively small compared to the dramatic gap between both vector-based containers and LinkedList.
+The overlap of thes performance comparable to std::vector. Although std::vector remains faster, the difference is relatively small compared to the dramatic gap between both vector-based containers and LinkedList.
 
 #### LinkedList Performance
 
-The linked list implementation performs significantly worse despite providing O(1) append complexity in theory.
+The linked list implementation performs significantly worse despite offering O(1) append complexity in theory.
 
 Each append operation requires:
 
@@ -331,13 +363,62 @@ Each append operation requires:
 - Node construction
 - Pointer manipulation
 
-In contrast, `Vec` and `std::vector` store elements contiguously in memory, allowing significantly better cache utilization and reducing allocation frequency.
+In contrast, Vec and std::vector store elements contiguously in memory, allowing much more effective cache utilization and reducing allocation frequency.
 
 #### Reallocation Behaviour
 
-The benchmark tracked container capacity during growth.
+The capacity-growth benchmark makes reallocation events directly observable.
 
-the behaviour of the standard library implementation. Capacity doubling explains why append operations maintain amortized O(1) complexity despite occasional expensive reallocations.
+Whenever capacity is exhausted:
+
+1. A larger memory block is allocated.
+2. Existing elements are copied into the new block.
+3. The old memory block is released.
+
+These reallocation events correspond directly to the visible jumps in the capacity graphs.
+
+Both Vec and std::vector followed exactly the same reallocation schedule throughout the experiment.
+
+#### Amortized O(1) Append
+
+Individual append operations occasionally incur O(n) cost because reallocation requires copying existing elements into a larger array.
+
+However, capacity doubles whenever growth occurs:
+
+```text
+1 → 2 → 4 → 8 → 16 → 32 → ...
+```
+
+As a result, the number of reallocations grows only logarithmically relative to the number of inserted elements.
+
+The measured runtime curves and capacity-growth graphs provide empirical evidence that append operations exhibit:
+
+```text
+O(1) amortized
+```
+
+complexity for both Vec and std::vector.
+
+---
+
+## Capacity Growth Analysis
+
+The measured capacity data shows that both Vec and std::vector used the same table-doubling strategy.
+
+The only difference occurred during initialization:
+
+```text
+Vec         : starts with capacity 1
+std::vector : starts with capacity 0
+```
+
+Afterward both containers followed identical growth behaviour:
+
+```text
+1 → 2 → 4 → 8 → 16 → 32 → ...
+```
+
+This observation directly explains the measured append performance and confirms the theoretical expectation of amortized O(1) insertion.
 
 ---
 
@@ -352,7 +433,7 @@ if (len == cap)
 }
 ```
 
-Capacity doubles whenever storage is exhausted.
+Capacity doubles whenever storage becomes exhausted.
 
 ### Rule of Five Support
 
@@ -364,7 +445,7 @@ The containers implement:
 - Move assignment
 - Destructor
 
-ensuring correct ownership and resource management.
+ensuring proper resource ownership and memory safety.
 
 ### Continuous Integration
 

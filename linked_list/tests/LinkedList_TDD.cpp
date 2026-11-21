@@ -102,6 +102,17 @@ TEST_CASE("Front and back return correct elements")
     REQUIRE(L.back() == 30);
 }
 
+TEST_CASE("Front throws for empty list")
+{
+    LinkedList L;
+
+    REQUIRE_THROWS_AS(
+        L.front(),
+        std::logic_error);
+}
+
+
+
 TEST_CASE("Resize grows list")
 {
     LinkedList L;

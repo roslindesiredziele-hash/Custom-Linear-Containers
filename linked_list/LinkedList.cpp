@@ -75,6 +75,23 @@ int& LinkedList::operator[](int index)
     return ptr->value;
 }
 
+const int& LinkedList::operator[](int index) const
+{
+    if(index < 0 || index >= len)
+    {
+        throw std::out_of_range("Index out of range");
+    }
+
+    Box* ptr = head;
+
+    for(int i = 0; i < index; i++)
+    {
+        ptr = ptr -> nextbox;
+    }
+    
+    return ptr->value;
+}
+
 void LinkedList::append(int v)
 {
     (!len)? head = tail = new Box(v,nullptr) : tail = tail -> nextbox = new Box(v,nullptr);

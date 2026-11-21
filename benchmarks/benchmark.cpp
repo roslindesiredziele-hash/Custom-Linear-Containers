@@ -92,3 +92,16 @@ double BenchmarkLinkedList(int size)
 
     return MeasureMilliseconds(start, end, freq);
 }
+
+double AverageVec(int size, int runs)
+{
+    double total = 0;
+
+    for(int i = 0; i < runs; i++)
+    {
+        total += BenchmarkVec(size);
+    }
+
+    return total / runs;
+}
+

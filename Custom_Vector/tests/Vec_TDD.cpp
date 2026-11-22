@@ -19,6 +19,8 @@ TEST_CASE("erase removes element")
     CHECK(v[1] == 30);
 }
 
+
+
 TEST_CASE("erase removes range")
 {
     Vec v(6);
@@ -28,7 +30,7 @@ TEST_CASE("erase removes range")
         v.push(i);
     }
 
-    v.erase(2, 4);
+    v.erase(1, 3);
 
     CHECK(v.size() == 3);
 

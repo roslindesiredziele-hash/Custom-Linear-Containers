@@ -11,7 +11,7 @@ TEST_CASE("Default constructor creates empty list")
     LinkedList L;
 
     REQUIRE(L.empty());
-    REQUIRE(L.getlength() == 0);
+    REQUIRE(L.size() == 0);
 }
 
 TEST_CASE("Self assignment")
@@ -23,7 +23,7 @@ TEST_CASE("Self assignment")
 
     L = L;
 
-    REQUIRE(L.getlength() == 2);
+    REQUIRE(L.size() == 2);
     REQUIRE(L[0] == 10);
     REQUIRE(L[1] == 20);
 }
@@ -69,7 +69,7 @@ TEST_CASE("Move constructor transfers ownership")
 
     LinkedList moved(std::move(original));
 
-    REQUIRE(moved.getlength() == 2);
+    REQUIRE(moved.size() == 2);
 
     REQUIRE(original.empty());
 }
@@ -84,7 +84,7 @@ TEST_CASE("Move assignment transfers ownership")
 
     moved = std::move(original);
 
-    REQUIRE(moved.getlength() == 2);
+    REQUIRE(moved.size() == 2);
 
     REQUIRE(original.empty());
 }
@@ -112,7 +112,7 @@ TEST_CASE("Append increases size")
     L.append(20);
     L.append(30);
 
-    REQUIRE(L.getlength() == 3);
+    REQUIRE(L.size() == 3);
 
     REQUIRE(L[0] == 10);
     REQUIRE(L[1] == 20);
@@ -127,7 +127,7 @@ TEST_CASE("Prepend inserts at beginning")
     L.prepend(20);
     L.prepend(30);
 
-    REQUIRE(L.getlength() == 3);
+    REQUIRE(L.size() == 3);
 
     REQUIRE(L[0] == 30);
     REQUIRE(L[1] == 20);
@@ -175,7 +175,7 @@ TEST_CASE("Clear removes all elements")
     L.clear();
 
     REQUIRE(L.empty());
-    REQUIRE(L.getlength() == 0);
+    REQUIRE(L.size() == 0);
 
     REQUIRE_THROWS_AS(
         L.front(),
@@ -191,7 +191,7 @@ TEST_CASE("Resize grows list")
 
     L.resize(5);
 
-    REQUIRE(L.getlength() == 5);
+    REQUIRE(L.size() == 5);
 
     REQUIRE(L[0] == 1);
     REQUIRE(L[1] == 2);
@@ -211,7 +211,7 @@ TEST_CASE("Resize shrinks list")
 
     L.resize(3);
 
-    REQUIRE(L.getlength() == 3);
+    REQUIRE(L.size() == 3);
 
     REQUIRE(L[0] == 1);
     REQUIRE(L[1] == 2);
@@ -229,7 +229,7 @@ TEST_CASE("Erase removes one element")
 
     L.erase(1);
 
-    REQUIRE(L.getlength() == 3);
+    REQUIRE(L.size() == 3);
 
     REQUIRE(L[0] == 1);
     REQUIRE(L[1] == 3);
@@ -247,7 +247,7 @@ TEST_CASE("Erase range removes multiple elements")
 
     L.erase(1, 3);
 
-    REQUIRE(L.getlength() == 3);
+    REQUIRE(L.size() == 3);
 
     REQUIRE(L[0] == 1);
     REQUIRE(L[1] == 5);

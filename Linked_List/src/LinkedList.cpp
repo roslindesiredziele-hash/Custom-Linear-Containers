@@ -129,7 +129,7 @@ const int& LinkedList::operator[](int index) const
     return ptr->value;
 }
 
-int LinkedList::getlength() const
+int LinkedList::size() const
 {
     return len;
 }

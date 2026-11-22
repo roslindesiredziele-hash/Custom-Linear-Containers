@@ -33,7 +33,7 @@ class LinkedList
     int& operator[](int);
     const int& operator[](int) const;
 
-    int getlength() const;
+    int size() const;
     bool empty() const;
 
     int& front();

@@ -19,8 +19,6 @@ TEST_CASE("erase removes element")
     CHECK(v[1] == 30);
 }
 
-
-
 TEST_CASE("erase removes range")
 {
     Vec v(6);
@@ -37,6 +35,23 @@ TEST_CASE("erase removes range")
     CHECK(v[0] == 1);
     CHECK(v[1] == 5);
     CHECK(v[2] == 6);
+}
+
+
+
+TEST_CASE("erase first element")
+{
+    Vec v(3);
+
+    v.push(1);
+    v.push(2);
+    v.push(3);
+
+    v.erase(0);
+
+    CHECK(v.size() == 2);
+    CHECK(v[0] == 2);
+    CHECK(v[1] == 3);
 }
 
 TEST_CASE("push increases size and stores values")

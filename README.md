@@ -1,324 +1,136 @@
-# Vec
+# Linear Containers Library
 
-[![C++ CI](https://github.com/roslindesiredziele-hash/Vector/actions/workflows/ci.yml/badge.svg)](https://github.com/roslindesiredziele-hash/Vector/actions/workflows/ci.yml)
+[![C++ CI](https://github.com/roslindesiredziele-hash/Custom-Linear-Containers/actions/workflows/ci.yml/badge.svg)](https://github.com/roslindesiredziele-hash/Custom-Linear-Containers/actions/workflows/ci.yml)
 
-A custom dynamic array implementation in modern C++ inspired by `std::vector`.
+A collection of custom sequential container implementations written in modern C++17.
 
-This project was developed to explore low-level memory management, dynamic storage growth strategies, value semantics, iterator design, and software testing practices in modern C++. The container implements automatic capacity growth using the table-doubling technique and supports common operations expected from a dynamic array.
+This project explores low-level memory management, dynamic storage strategies, value semantics, move semantics, algorithm complexity analysis, and software testing practices through the implementation of two fundamental linear data structures:
+
+- **Vec** - a dynamic array inspired by `std::vector`
+- **LinkedList** - a singly linked list with head and tail pointers
+
+The repository emphasizes correctness, maintainability, testing, and modern C++ design principles.
 
 ---
 
 ## Features
 
-### Memory Management
+### Vec (Dynamic Array)
 
-- Dynamic memory allocation
-- Automatic capacity doubling
-- RAII-compliant resource management
+- Dynamic contiguous storage
+- Automatic capacity growth using table doubling
+- O(1) random access
+- Rule of Five implementation
 - Deep copy semantics
 - Move semantics
+- Bounds-checked access
+- Iterator support
+- Range-based loop support
+- Search algorithms
+- Utility algorithms
 
-### Element Access
-
-- `operator[]`
-- `get()`
-- `first()`
-- `last()`
-
-### Capacity Management
-
-- `size()`
-- `capacity()`
-- `empty()`
-- `resize()`
-- `clear()`
-
-### Modification Operations
-
-- `push()`
-- `pop()`
-- `deleteMe()`
-- `deleteUs()`
-
-### Searching
-
-- `linearSearch()`
-- `binarySearch()`
-
-### Utility Algorithms
-
-- `reverse()`
-- `reverse(int l, int r)`
-- `rotate()`
-- `sum()`
-- `avg()`
-
-### Iterator Support
-
-- `begin()`
-- `end()`
-
-Supports range-based loops:
+#### Operations
 
 ```cpp
-for (int value : vec)
-{
-    std::cout << value << '\n';
-}
+push()
+pop()
+
+erase(index)
+erase(first, last)
+
+resize()
+clear()
+
+first()
+last()
+
+linearSearch()
+binarySearch()
+
+reverse()
+reverse(first, last)
+rotate()
+
+sum()
+avg()
+```
+
+---
+
+### LinkedList
+
+- Singly linked list implementation
+- Head and tail pointers
+- O(1) append operation
+- Rule of Five implementation
+- Deep copy semantics
+- Move semantics
+- Dynamic resizing
+- Single element removal
+- Range removal
+- Constant-time front/back access
+
+#### Operations
+
+```cpp
+append()
+prepend()
+
+erase(index)
+erase(first, last)
+
+resize()
+clear()
+
+front()
+back()
+
+operator[]
+size()
+empty()
 ```
 
 ---
 
 ## Complexity Analysis
 
-| Operation | Complexity |
-|------------|------------|
-| Access (`[]`) | O(1) |
-| `push()` (amortized) | O(1) |
-| `push()` (worst case) | O(n) |
-| `pop()` | O(1) |
-| `resize()` | O(n) |
-| `deleteMe()` | O(n) |
-| `deleteUs()` | O(n) |
-| `linearSearch()` | O(n) |
-| `binarySearch()` | O(log n) |
-| `reverse()` | O(n) |
-| `rotate()` | O(n) |
-
----
-
-## Project Structure
-
-```text
-Vector
-│
-├── .github/
-│   └── workflows/
-│       └── ci.yml
-│
-├── external/
-│   └── catch.hpp
-│
-├── src/
-│   ├── Vec.cpp
-│   └── Vec.h
-│
-├── tests/
-│   └── Vec_TDD.cpp
-│
-├── CMakeLists.txt
-│
-└── README.md
-```
-
----
-
-## Installation
-
-Clone the repository:
-
-```bash
-git clone https://github.com/roslindesiredziele-hash/Vector.git
-cd Vector
-```
-
----
-
-## Build
-
-Configure the project:
-
-```bash
-cmake -S . -B build
-```
-
-Build the project:
-
-```bash
-cmake --build build
-```
-
----
-
-## Testing
-
-Run all tests using CTest:
-
-```bash
-ctest --test-dir build -C Debug --output-on-failure
-```
-
-Run the test executable directly:
-
-```bash
-./build/Debug/Vec_TDD.exe
-```
-
-Expected output:
-
-```text
-===============================================================================
-All tests passed (91 assertions in 36 test cases)
-```
-
----
-
-## Usage Examples
-
-### Creating a Vector
-
-```cpp
-#include "Vec.h"
-
-int main()
-{
-    Vec numbers(2);
-
-    numbers.push(10);
-    numbers.push(20);
-    numbers.push(30);
-}
-```
-
----
-
-### Element Access
-
-```cpp
-Vec v(3);
-
-v.push(10);
-v.push(20);
-v.push(30);
-
-std::cout << v[1] << '\n';
-std::cout << v.first() << '\n';
-std::cout << v.last() << '\n';
-```
-
-Output:
-
-```text
-20
-10
-30
-```
-
----
-
-### Deleting a Single Element
-
-```cpp
-Vec v(5);
-
-v.push(10);
-v.push(20);
-v.push(30);
-
-v.deleteMe(2);
-```
-
-Result:
-
-```text
-[10; 30]
-```
-
----
-
-### Deleting a Range
-
-```cpp
-Vec v(6);
-
-for (int i = 1; i <= 6; i++)
-{
-    v.push(i);
-}
-
-v.deleteUs(2, 4);
-```
-
-Result:
-
-```text
-[1; 5; 6]
-```
-
----
-
-### Searching
-
-```cpp
-Vec v(5);
-
-v.push(1);
-v.push(3);
-v.push(5);
-v.push(7);
-v.push(9);
-
-std::cout << v.linearSearch(5) << '\n';
-std::cout << v.binarySearch(5) << '\n';
-```
-
-Output:
-
-```text
-1
-2
-```
-
----
-
-### Rotation
-
-```cpp
-Vec v(4);
-
-v.push(1);
-v.push(2);
-v.push(3);
-v.push(4);
-
-v.rotate(1);
-```
-
-Result:
-
-```text
-[4; 1; 2; 3]
-```
-
----
-
-## Testing & Quality Assurance
-
-The project uses:
-
-- **Catch2** for unit testing
-- **CTest** for test execution
-- **CMake** for build configuration
-- **GitHub Actions** for continuous integration
-
-### Project Statistics
-
-- 36 automated test cases
-- 91 assertions
-- Copy constructor coverage
-- Move constructor coverage
-- Assignment operator coverage
-- Iterator testing
-- Exception testing
-- Dynamic resize testing
+| Operation | Vec | LinkedList |
+|------------|------------|------------|
+| Access by index | O(1) | O(n) |
+| Front access | O(1) | O(1) |
+| Back access | O(1) | O(1) |
+| Append | O(1) amortized | O(1) |
+| Prepend | O(n) | O(1) |
+| Erase | O(n) | O(n) |
+| Resize | O(n) | O(n) |
+| Linear search | O(n) | O(n) |
+| Binary search | O(log n) | N/A |
+| Reverse | O(n) | N/A |
+| Rotate | O(n) | N/A |
 
 ---
 
 ## Design Highlights
 
+### Rule of Five
+
+Both containers implement:
+
+```cpp
+Destructor
+Copy Constructor
+Copy Assignment
+Move Constructor
+Move Assignment
+```
+
+providing predictable value semantics and safe ownership management.
+
+---
+
 ### Table Doubling Strategy
 
-When capacity is exhausted, the vector automatically grows:
+The vector grows geometrically when capacity is exhausted:
 
 ```cpp
 if (len == cap)
@@ -327,42 +139,125 @@ if (len == cap)
 }
 ```
 
-This provides amortized **O(1)** append operations.
+This strategy provides:
 
-### Value Semantics
-
-The container supports:
-
-- Copy construction
-- Copy assignment
-- Move construction
-
-allowing safe and predictable ownership management.
-
-### STL-Like Interface
-
-Iterator support enables:
-
-```cpp
-for (int value : vec)
-{
-    // ...
-}
-```
-
-making the container feel familiar to users of `std::vector`.
+- O(1) amortized append
+- Efficient memory growth
+- Similar behavior to `std::vector`
 
 ---
 
-## Future Improvements
+### Iterator Support
 
-- Template support (`Vec<T>`)
-- Custom iterator class
-- Insert operations
-- Shrink-to-fit functionality
-- STL-compatible API
-- Allocator support
-- Strong exception guarantees
+`Vec` supports range-based loops:
+
+```cpp
+Vec values(4);
+
+values.push(1);
+values.push(2);
+values.push(3);
+values.push(4);
+
+for (int value : values)
+{
+    std::cout << value << '\n';
+}
+```
+
+---
+
+## Project Structure
+
+```text
+Custom-Linear-Containers
+│
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+│
+├── external/
+│   └── catch.hpp
+│
+├── Custom_Vector/
+│   ├── src/
+│   │   ├── Vec.h
+│   │   └── Vec.cpp
+│   │
+│   └── tests/
+│       └── Vec_TDD.cpp
+│
+├── Linked_List/
+│   ├── src/
+│   │   ├── LinkedList.h
+│   │   └── LinkedList.cpp
+│   │
+│   └── tests/
+│       └── LinkedList_TDD.cpp
+│
+├── CMakeLists.txt
+└── README.md
+```
+
+---
+
+## Build
+
+Clone the repository:
+
+```bash
+git clone https://github.com/roslindesiredziele-hash/Custom-Linear-Containers.git
+
+cd Custom-Linear-Containers
+```
+
+Configure:
+
+```bash
+cmake -S . -B build
+```
+
+Build:
+
+```bash
+cmake --build build --config Debug
+```
+
+Release build:
+
+```bash
+cmake --build build --config Release
+```
+
+---
+
+## Testing
+
+Run all tests:
+
+```bash
+ctest --test-dir build -C Debug --output-on-failure
+```
+
+Run individual test suites:
+
+```bash
+./build/Debug/Vec_TDD.exe
+
+./build/Debug/LinkedList_TDD.exe
+```
+
+---
+
+## Continuous Integration
+
+The project uses GitHub Actions to automatically:
+
+- Configure the project using CMake
+- Build Debug configurations
+- Build Release configurations
+- Run all unit tests
+- Verify changes on every push and pull request
 
 ---
 
@@ -376,10 +271,28 @@ making the container feel familiar to users of `std::vector`.
 
 ---
 
-## Author
+## Future Improvements
+
+### Vec
+
+- Template support (`Vec<T>`)
+- Insert operations
+- Shrink-to-fit functionality
+- Custom iterator class
+- STL-compatible API
+- Allocator support
+
+### LinkedList
+
+- Bidirectional iterator support
+- Insert operations
+- Template support (`LinkedList<T>`)
+- Merge and splice operations
+
+-r
 
 **Desire Roslin Dziele**  
 Computer Science Student  
 University of Łódź
 
-> *Understanding how software works internally is the best way to build software that lasts.*
+> Understanding how software works internally is the best way to build software that lasts.

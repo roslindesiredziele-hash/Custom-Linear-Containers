@@ -4,15 +4,15 @@
 
 #include "../src/Vec.h"
 
-TEST_CASE("deleteMe removes element")
+TEST_CASE("erase removes element")
 {
-    Vec v(5);
+   Vec v(5);
 
     v.push(10);
     v.push(20);
     v.push(30);
 
-    v.erase(2);
+    v.erase(1);
 
     CHECK(v.size() == 2);
     CHECK(v[0] == 10);

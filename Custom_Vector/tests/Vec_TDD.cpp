@@ -101,6 +101,20 @@ TEST_CASE("Move assignment replaces existing contents")
     CHECK(a.capacity() == 0);
 }
 
+TEST_CASE("Self move assignment")
+{
+    Vec v(2);
+
+    v.push(1);
+    v.push(2);
+
+    v = std::move(v);
+
+    CHECK(v.size() == 2);
+    CHECK(v[0] == 1);
+    CHECK(v[1] == 2);
+}
+
 TEST_CASE("Negative capacity throws")
 {
     REQUIRE_THROWS_AS(

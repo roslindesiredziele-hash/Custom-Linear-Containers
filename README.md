@@ -6,8 +6,8 @@ A collection of custom sequential container implementations written in modern C+
 
 This project explores low-level memory management, dynamic storage strategies, value semantics, move semantics, algorithm complexity analysis, and software testing practices through the implementation of two fundamental linear data structures:
 
-- **Vec** - a dynamic array inspired by `std::vector`
-- **LinkedList** - a singly linked list with head and tail pointers
+- **Vec** – a dynamic array inspired by `std::vector`
+- **LinkedList** – a singly linked list with head and tail pointers
 
 The repository emphasizes correctness, maintainability, testing, and modern C++ design principles.
 
@@ -62,6 +62,7 @@ avg()
 - Singly linked list implementation
 - Head and tail pointers
 - O(1) append operation
+- O(1) prepend operation
 - Rule of Five implementation
 - Deep copy semantics
 - Move semantics
@@ -117,14 +118,16 @@ empty()
 Both containers implement:
 
 ```cpp
-Destructor
-Copy Constructor
-Copy Assignment
-Move Constructor
-Move Assignment
+~Container();
+
+Container(const Container&);
+Container& operator=(const Container&);
+
+Container(Container&&) noexcept;
+Container& operator=(Container&&) noexcept;
 ```
 
-providing predictable value semantics and safe ownership management.
+This ensures safe resource ownership, predictable value semantics, and efficient transfers of resources.
 
 ---
 
@@ -217,13 +220,13 @@ Configure:
 cmake -S . -B build
 ```
 
-Build:
+Build (Debug):
 
 ```bash
 cmake --build build --config Debug
 ```
 
-Release build:
+Build (Release):
 
 ```bash
 cmake --build build --config Release
@@ -242,9 +245,120 @@ ctest --test-dir build -C Debug --output-on-failure
 Run individual test suites:
 
 ```bash
-./build/Debug/Vec_TDD.exe
+build/Debug/Vec_TDD.exe
 
-./build/Debug/LinkedList_TDD.exe
+build/Debug/LinkedList_TDD.exe
+```
+
+### Latest Results
+
+#### Vec
+
+```text
+All tests passed (112 assertions in 42 test cases)
+```
+
+#### LinkedList
+
+```text
+All tests passed (48 assertions in 17 test cases)
+```
+
+#### Total
+
+```text
+59 test cases
+160 assertions
+```
+
+CTests:
+
+```text
+100% tests passed out of 2
+
+VecTests ................. Passed
+LinkedListTests .......... Passed
+```
+
+---
+
+## Usage Examples
+
+### Vec
+
+```cpp
+Vec numbers(2);
+
+numbers.push(10);
+numbers.push(20);
+numbers.push(30);
+
+std::cout << numbers << '\n';
+```
+
+Output:
+
+```text
+[10; 20; 30]
+```
+
+### Erasing an Element
+
+```cpp
+Vec v(5);
+
+v.push(10);
+v.push(20);
+v.push(30);
+
+v.erase(1);
+```
+
+Result:
+
+```text
+[10; 30]
+```
+
+### Erasing a Range
+
+```cpp
+Vec v(6);
+
+for (int i = 1; i <= 6; i++)
+{
+    v.push(i);
+}
+
+v.erase(1, 3);
+```
+
+Result:
+
+```text
+[1; 5; 6]
+```
+
+---
+
+### LinkedList
+
+```cpp
+LinkedList list;
+
+list.append(10);
+list.append(20);
+list.prepend(5);
+
+std::cout << list.front() << '\n';
+std::cout << list.back() << '\n';
+```
+
+Output:
+
+```text
+5
+20
 ```
 
 ---
@@ -256,8 +370,49 @@ The project uses GitHub Actions to automatically:
 - Configure the project using CMake
 - Build Debug configurations
 - Build Release configurations
-- Run all unit tests
-- Verify changes on every push and pull request
+- Execute all unit tests
+- Validate pushes and pull requests
+
+---
+
+## Testing & Quality Assurance
+
+The project uses:
+
+- **Catch2** for unit testing
+- **CTest** for test execution
+- **CMake** for build configuration
+- **GitHub Actions** for continuous integration
+
+### Coverage Highlights
+
+#### Vec
+
+- Copy constructor
+- Copy assignment
+- Move constructor
+- Move assignment
+- Self move assignment
+- Iterator support
+- Dynamic resizing
+- ExceptionSingle element erase
+- Range erase
+- Search algorithms
+- Reverse and rotate operations
+
+#### LinkedList
+
+- Copy constructor
+- Copy assignment
+- Move constructor
+- Move assignment
+- Self assignment
+- Append and prepend
+- Front and back access
+- Resize operations
+- Single element erase
+- Range erase
+- Exception handling
 
 ---
 
@@ -284,12 +439,15 @@ The project uses GitHub Actions to automatically:
 
 ### LinkedList
 
-- Bidirectional iterator support
-- Insert operations
 - Template support (`LinkedList<T>`)
-- Merge and splice operations
+- Insert operations
+- Bidirectional iterator support
+- Merge operations
+- Splice operations
 
--r
+---
+
+## Author
 
 **Desire Roslin Dziele**  
 Computer Science Student  

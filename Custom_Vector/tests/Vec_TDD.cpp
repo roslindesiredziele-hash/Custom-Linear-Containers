@@ -37,6 +37,21 @@ TEST_CASE("erase removes range")
     CHECK(v[2] == 6);
 }
 
+TEST_CASE("erase last element")
+{
+    Vec v(3);
+
+    v.push(1);
+    v.push(2);
+    v.push(3);
+
+    v.erase(2);
+
+    CHECK(v.size() == 2);
+    CHECK(v[0] == 1);
+    CHECK(v[1] == 2);
+}
+
 
 
 TEST_CASE("erase first element")

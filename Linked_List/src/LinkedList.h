@@ -16,8 +16,8 @@ class LinkedList
         {}
     };
 
-    struct Box* head;
-    struct Box* tail;
+    Box* head;
+    Box* tail;
     int len;
 
     public:

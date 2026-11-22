@@ -52,7 +52,17 @@ TEST_CASE("erase last element")
     CHECK(v[1] == 2);
 }
 
+TEST_CASE("erase range throws on invalid indices")
+{
+    Vec v(3);
 
+    v.push(1);
+    v.push(2);
+    v.push(3);
+
+    REQUIRE_THROWS_AS(v.erase(-1, 1), std::out_of_range);
+    REQUIRE_THROWS_AS(v.erase(0, 5), std::out_of_range);
+}
 
 TEST_CASE("erase first element")
 {

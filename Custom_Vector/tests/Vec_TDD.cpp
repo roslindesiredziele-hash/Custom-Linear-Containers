@@ -19,7 +19,7 @@ TEST_CASE("erase removes element")
     CHECK(v[1] == 30);
 }
 
-TEST_CASE("deleteUs removes range")
+TEST_CASE("erase removes range")
 {
     Vec v(6);
 
